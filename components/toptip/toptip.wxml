@@ -1,0 +1,1 @@
+<view wx:if="{{text}}" class="main {{type}}">{{text}}</view>

@@ -1,0 +1,8 @@
+<view class="container" >
+  <image src="{{image_url}}" mode="aspectFit" class="image" />
+  <the-input text="验证码" value="" bind:input="onInput" data-label="code"></the-input>
+  <view class="button-container">
+    <the-button text="{{reset_text}}" catch:the_tap="reset" disabled="{{button_disabled}}"></the-button>
+    <the-button text="提交" catch:the_tap="onSubmit"></the-button>
+  </view>
+</view>

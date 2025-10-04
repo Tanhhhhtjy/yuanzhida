@@ -1,0 +1,6 @@
+<the-toptip text="{{toptipText}}"></the-toptip>
+<the-input text="用户名" bind:input="onInput" data-label="username"></the-input>
+<the-input text="密码" bind:input="onInput" data-label="password"></the-input>
+<the-button text="提交" bind:the_tap="onSubmit"></the-button>
+<view class="backgroud" wx:if="{{captcha_show}}" bind:tap="captcha_hide"></view>
+<the-captcha class="captcha"  wx:if="{{captcha_show}}" bind:submit="submit_login"></the-captcha>

@@ -1,0 +1,10 @@
+<scroll-view class="container" scroll-y="true">
+  <view class="title">源智答</view>
+  <view class="list">
+    <view wx:for="{{subjects}}" wx:key="id">
+      <navigator url="{{'/pages/questions/questions?id='+item.id}}">
+        <image src="{{item.image}}" mode="widthFix" />
+      </navigator>
+    </view>
+  </view>
+</scroll-view>

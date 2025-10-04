@@ -1,0 +1,11 @@
+.button {
+  background-color: #B4D4F9;
+  padding: 20rpx 40rpx;
+  text-align: center;
+  font-size: 90rpx;
+  border: blue 1px solid;
+}
+
+.disabled {
+  background-color: #D9D9D9;
+}

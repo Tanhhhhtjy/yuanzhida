@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/subjects/subjects",
+    "pages/me/me",
+    "pages/noLogin/noLogin",
+    "pages/newQuestion/newQuestion",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/questions/questions",
+    "pages/detail/detail"
+  ],
+  "tabBar": {
+    "color": "0x000000",
+    "selectedColor": "0xffffff",
+    "backgroundColor": "0x000000",
+    "list": [
+      {
+        "pagePath": "pages/subjects/subjects",
+        "text": "科目",
+        "iconPath": "assets/image/subjects.png",
+        "selectedIconPath": "assets/image/subjects.png"
+      },
+      {
+        "pagePath": "pages/newQuestion/newQuestion",
+        "text": "提问",
+        "iconPath": "assets/image/newQuesion.png",
+        "selectedIconPath": "assets/image/newQuesion.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "assets/image/me.png",
+        "selectedIconPath": "assets/image/me.png"
+      }
+    ]
+  },
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

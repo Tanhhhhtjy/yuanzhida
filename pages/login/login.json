@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "the-input": "/components/input/input",
+    "the-button": "/components/button/button",
+    "the-captcha": "/components/captcha/captcha",
+    "the-toptip": "/components/toptip/toptip"
+  }
+}

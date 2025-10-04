@@ -1,0 +1,20 @@
+.main{
+  position: fixed;
+  z-index: 600;
+  top: 0;
+  left: 0;
+  padding: 10rpx;
+  border-bottom: 1px solid black;
+  background-color: #A8F9A2;
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 40rpx;
+  text-align: center;
+}
+.warn{
+  background-color: #EBE198;
+}
+.error{
+  background-color: #FE7C7E;
+}

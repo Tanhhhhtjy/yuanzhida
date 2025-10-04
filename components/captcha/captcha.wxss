@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #D9D9D9;
+  align-items: center;
+  justify-content: center;
+  border: solid black 1px;
+  padding: 20rpx;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 40rpx;
+}
+
+.image {
+  width: 600rpx;
+}
