@@ -1,5 +1,5 @@
 export function saveSubjects(_subjects) {
-  wx.setStorageSync('subjects', _subjects)
+  wx.setStorageSync('subjects', _subjects.sort((a, b) => a.id - b.id))
 }
 export function getSubjects() {
   return wx.getStorageSync('subjects') || []

@@ -1,6 +1,10 @@
-const OSS_HOST = 'https://yuanzhida-cos-1352975306.cos.ap-beijing.myqcloud.com/'
+const { OSS_HOST } = require('./constant')
 export function add_oss_prefix(relativeUrl) {
   return `${OSS_HOST}${relativeUrl}`
+}
+export function add_oss_prefix_images(images) {
+  console.log(images);
+  return images.map(i => OSS_HOST + i)
 }
 export function add_oss_prefix_subjects(subjects) {
   let newList = []

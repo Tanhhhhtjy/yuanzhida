@@ -6,7 +6,7 @@ Component({
   data: {
     'images': [],
     'canAddImage': true,
-    'addImageText': '添加'
+    'addImageText': '添加图片'
   },
   methods: {
     addImage: function () {

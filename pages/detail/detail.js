@@ -1,66 +1,61 @@
-// pages/detail/detail.js
+const api = require('../../utils/api')
+const data = require('../../utils/data')
+const util = require('../../utils/util')
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    'questionId': 0,
+    'inputItems': [
+      { type: 'text', key: 'content', title: '内容', multiLine: true },
+      { type: 'images', key: 'images' }
+    ],
+    'outputItems': {},
+    'title': '',
+    'content': '',
+    'images': [],
+    'subject_name': ''
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
+    let id = options.id
+    this.setData({ 'questionId': id })
+    api.questionDetail(id)
+      .then(res => {
+        let subjects = data.getSubjects(id)
+        this.setData({ 'title': res.title, 'content': res.content, 'images': util.add_oss_prefix_images(res.images.split(',')), 'subject_name': subjects[res.categoryId].name })
+      }).catch(e => {
+        wx.showToast({
+          title: e,
+          icon: 'error'
+        })
+      })
 
+    api.comments({ 'questionId': id, size: 10, current: 1 })
+      .then(res => {
+        console.log(res);
+      }).catch(e => {
+        console.error(e);
+      })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  onInput: function (e) {
+    this.setData({ 'outputItems': e.detail })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  submit_answer: function () {
+    let outputItems = this.data.outputItems
+    outputItems['questionId'] = this.data.questionId
+    outputItems['topCommentId'] = 0
+    outputItems['parentCommentId'] = 0
+    wx.showLoading({
+      title: '正在提交',
+    })
+    api.newAnswer(outputItems).then(res => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '提交成功',
+      })
+      setTimeout(() => {
+        wx.redirectTo('/pages/detail/detail?id=' + this.data.questionId)
+      }, 2000);
+    })
   }
 })

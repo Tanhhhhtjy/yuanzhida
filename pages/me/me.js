@@ -17,10 +17,12 @@ Page({
       complete: (res) => {
         if (res.confirm) {
           auth.logout()
-          this.setData({ 'username': auth.getUsername() })
           wx.showToast({
             title: '退出登录成功',
           })
+          setTimeout(() => {
+            this.setData({ 'username': auth.getUsername() })
+          }, 2000);
         }
       }
     })

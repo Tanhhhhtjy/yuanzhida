@@ -5,7 +5,8 @@ Component({
     text: { type: String, value: "标签" },
     value: { type: String, value: "" },
     placeholder: { type: String, value: "请输入" },
-    multiLine: { type: Boolean, value: false }
+    multiLine: { type: Boolean, value: false },
+    password: { type: Boolean, value: false }
   },
   data: {
     newValue: ''
@@ -13,7 +14,7 @@ Component({
 
   methods: {
     _onInput: function (e) {
-      this.setData({ newValue: e.detail.value })
+      this.setData({ newValue: e.detail.value.trim() })
       this.trigger()
     },
     trigger: function () {

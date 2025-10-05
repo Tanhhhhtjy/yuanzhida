@@ -1,66 +1,55 @@
-// pages/register/register.js
+const api = require('../../utils/api')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    inputItems: [
+      { type: "text", key: "username", title: "用户名" },
+      { type: "text", key: "password", title: "密码", password: true },
+      { type: "text", key: "mail", title: "邮箱" },
+      { type: "text", key: "code", title: "验证码" },
+    ],
+    outputItems: {},
+    captchaText: "获取邮箱验证码"
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  get_code: function () {
+    wx.showLoading({
+      title: '正在发送验证码',
+    })
+    api.register_code(this.data.outputItems['mail']).then(res => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '验证码发送成功',
+      })
+    }).catch(e => {
+      wx.hideLoading()
+      wx.showToast({
+        title: e,
+        icon: 'error'
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  submit: function () {
+    wx.showLoading({
+      title: '正在注册',
+    })
+    api.register(this.data.outputItems).then(res => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '注册成功，请登录',
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: '/pages/me/me',
+        })
+      }, 2000);
+    }).catch(e => {
+      wx.hideLoading()
+      wx.showToast({
+        title: e,
+        icon: 'error'
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  onInput: function (e) {
+    this.setData({ 'outputItems': e.detail })
   }
 })

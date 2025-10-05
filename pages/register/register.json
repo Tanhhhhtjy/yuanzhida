@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "the-button": "/components/button/button",
+    "the-input-group": "/components/input-group/input-group"
+  }
 }

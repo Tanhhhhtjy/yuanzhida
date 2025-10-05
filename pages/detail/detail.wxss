@@ -1,1 +1,12 @@
-/* pages/detail/detail.wxss */
+.title {
+  font-size: 60rpx;
+}
+
+.subject,
+.content {
+  font-size: 48rpx;
+}
+
+.image {
+  height: 300rpx;
+}

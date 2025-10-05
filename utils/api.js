@@ -1,5 +1,7 @@
 const util = require('./util')
 const auth = require('./auth')
+const { api, baseUrl } = require('./constant')
+const validate = require('./validate')
 function getHeader() {
   return {
     'username': auth.getUsername(),
@@ -13,6 +15,16 @@ export function login(username, password, code, cookie) {
       .then(res => resolve(res.token))
       .catch(reject)
   })
+}
+export function register(data) {
+  let validate_result = validate.register(data)
+  if (validate_result) return validate_result
+  return request({ relativeUrl: api['register'].url, method: api['register'].method, data: data })
+}
+export function register_code(mail) {
+  let validate_result = validate.mail_validate(mail)
+  if (validate_result) return validate_result
+  return request({ relativeUrl: api['register_code'].url, params: { mail: mail } })
 }
 export function login_code() {
   return new Promise((accept, reject) => {
@@ -73,6 +85,12 @@ export function oss_upload(filePath) {
     })
   })
 }
+export function questionDetail(id) {
+  return request({ relativeUrl: api['questionDetail'].url + id })
+}
+export function comments(params) {
+  return request({ relativeUrl: api['comments'].url, params: params })
+}
 export function newQuestion(data) {
   return uploadImages(data['images'])
     .then(res => {
@@ -81,16 +99,13 @@ export function newQuestion(data) {
       return request({ relativeUrl: api['newQuestion'].url, method: api['newQuestion'].method, header: getHeader(), data: data })
     })
 }
-const baseUrl = 'http://43.143.231.162:8000'
-const api = {
-  'login': { 'url': '/api/answerly/v1/user/login', 'method': 'POST' },
-  'register': { 'url': '/api/answerly/v1/user', 'method': 'POST' },
-  'login_code': { 'url': '/api/answerly/v1/user/captcha' },
-  'register_code': { 'url': '/api/answerly/v1/user/send-code' },
-  'subjects': { 'url': '/api/answerly/v1/category' },
-  'questions': { 'url': '/api/answerly/v1/question/page' },
-  'newQuestion': { 'url': '/api/answerly/v1/question', 'method': 'POST' },
-  'oss_upload': { 'url': '/cos/upload' }
+export function newAnswer(data) {
+  return uploadImages(data['images'])
+    .then(res => {
+      let newImages = res.join(',')
+      data['images'] = newImages
+      return request({ relativeUrl: api['newAnswer'].url, method: api['newAnswer'].method, header: getHeader(), data: data })
+    })
 }
 function request({ method = 'GET', relativeUrl, params = {}, header = null, data = null }) {
   let url = baseUrl + relativeUrl

@@ -1,4 +1,12 @@
-<view class="big-container">
-<view class="">
-</view>
-</view>
+<scroll-view scroll-y="true">
+  <view class="title">{{title}}</view>
+  <view class="subject">{{subject_name}}</view>
+  <view class="content">{{content}}</view>
+  <image class="image" wx:for="{{images}}" src="{{item}}" wx:key="*this" mode="heightFix" />
+  <view wx:for="{{answers}}" wx:for="*this">
+    <view class="content">{{item.content}}</view>
+    <image wx:for="{{item.images}}" wx:for-value="answer_image" wx:key="*this" src="{{answer_image}}" mode="heightFix" class="image" />
+  </view>
+  <the-input-group inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
+  <the-button text="提交解答" bind:the_tap="submit_answer"></the-button>
+</scroll-view>

@@ -17,6 +17,7 @@ Page({
     })
     api.newQuestion(this.data.outputItems)
       .then(() => {
+        wx.hideLoading()
         wx.showToast({
           title: '新建问题成功',
         })
@@ -27,9 +28,11 @@ Page({
         }, 1000);
       })
       .catch(e => {
+        wx.hideLoading()
         console.error('新建问题失败\n', e);
-        wx.showToast({
+        wx.showModal({
           title: '新建问题失败',
+          content: e
         })
       })
   }

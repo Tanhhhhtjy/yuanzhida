@@ -24,11 +24,25 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/detail/detail",
+          "pathName": "pages/detail/detail",
+          "query": "id=3",
+          "scene": null,
+          "launchMode": "default"
+        },
+        {
+          "name": "pages/register/register",
+          "pathName": "pages/register/register",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/newQuestion/newQuestion",
           "pathName": "pages/newQuestion/newQuestion",
           "query": "",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/questions/questions",

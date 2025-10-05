@@ -2,6 +2,6 @@
   <view class="label">{{text}}</view>
   <view class="input-box">
     <textarea class="textarea" wx:if="{{multiLine}}" value="{{value}}" maxlength="1500" auto-height="true" placeholder="{{placeholder}}" bind:input="_onInput" data-key="{{key}}"></textarea>
-    <input wx:else type="text" value="{{value}}" class="input" placeholder="{{placeholder}}" bind:input="_onInput" data-key="{{key}}" />
+    <input wx:else type="text" value="{{value}}" class="input" placeholder="{{placeholder}}" bind:input="_onInput" data-key="{{key}}" password="{{password}}" />
   </view>
 </view>
