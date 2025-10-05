@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "the-input": "/components/input/input",
+    "the-images-input": "/components/images-input/images-input",
+    "the-subjects-selector": "/components/subjects-selector/subjects-selector"
+  }
+}

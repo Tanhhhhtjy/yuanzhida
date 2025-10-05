@@ -2,8 +2,10 @@ var api = require('../../utils/api.js')
 var auth = require('../../utils/auth.js')
 Page({
   data: {
-    'username': '',
-    'password': '',
+    inputItems: [
+      { type: 'text', key: 'username', title: '用户名' },
+      { type: 'text', key: 'password', title: '密码' }],
+    outputItems: {},
     'code': '',
     'cookie': '',
     'captcha_show': false,
@@ -13,13 +15,11 @@ Page({
     this.setData({ 'captcha_show': true })
   },
   onInput: function (e) {
-    let temp = {}
-    temp[e.currentTarget.dataset.label] = e.detail.detail.value
-    this.setData(temp)
+    this.setData({ 'outputItems': e.detail })
   },
   submit_login: function (e) {
-    api.login(this.data.username, this.data.password, e.detail.code, e.detail.cookie).then(res => {
-      auth.saveAuth(this.data.username, res)
+    api.login(this.data.outputItems['username'], this.data.outputItems['password'], e.detail.code, e.detail.cookie).then(res => {
+      auth.saveAuth(this.data.outputItems['username'], res)
       wx.reLaunch({
         url: '/pages/subjects/subjects',
       })

@@ -1,66 +1,18 @@
-// pages/newQuestion/newQuestion.js
+const api = require('../../utils/api')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    inputItems: [
+      { type: 'text', key: 'title', title: '标题' },
+      { type: 'subject' },
+      { type: 'text', key: 'content', title: '内容', multiLine: true },
+      { type: 'images', key: 'images' }],
+    outputItems: {}
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  onInput: function (e) {
+    this.setData({ 'outputItems': e.detail })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  onSubmit: function () {
+    api.newQuestion(this.data.outputItems)
+    .then(res => { console.log(res); })
   }
 })

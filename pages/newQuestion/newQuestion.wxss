@@ -1,1 +1,3 @@
-/* pages/newQuestion/newQuestion.wxss */
+.container {
+  height: 100%;
+}

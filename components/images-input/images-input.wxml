@@ -1,2 +1,7 @@
-<!--components/images-input/images-input.wxml-->
-<text>components/images-input/images-input.wxml</text>
+<view class="image-list">
+  <view class="item" wx:for="{{images}}" wx:key="*this">
+    <image catch:tap="previewImage" data-index="{{index}}" class="image" src="{{item}}" mode="aspectFill" />
+    <image catch:tap="delImage" class="trash" data-index="{{index}}" src="/assets/image/trash.png" mode="heightFix" />
+  </view>
+  <the-button text="{{addImageText}}" bind:the_tap="addImage" disabled="{{!canAddImage}}"></the-button>
+</view>

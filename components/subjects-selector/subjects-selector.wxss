@@ -1,23 +1,18 @@
 .container {
   display: flex;
   flex-direction: row;
-  padding: 30rpx 0;
   gap: 30rpx;
+
 }
 
-.label,
-.input-box {
+.title,
+.value {
   height: 45rpx;
   font-size: 45rpx;
   line-height: 45rpx;
 }
 
-.input {
-  display: inline-block;
-}
-
-.input-box {
-  padding-bottom: 3rpx;
-  flex: 1;
+.value {
   border-bottom: 1px solid black;
+  padding-bottom: 3rpx;
 }

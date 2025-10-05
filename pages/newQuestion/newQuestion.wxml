@@ -1,2 +1,4 @@
-<!--pages/newQuestion/newQuestion.wxml-->
-<text>pages/newQuestion/newQuestion.wxml</text>
+<scroll-view class="container" scroll-y="true">
+  <the-input-group inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
+  <the-button text="提交" bind:the_tap="onSubmit"></the-button>
+</scroll-view>

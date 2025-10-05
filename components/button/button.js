@@ -7,6 +7,9 @@ Component({
   },
   methods: {
     _ontap: function () {
+      if (this.data.disabled) {
+        return
+      }
       this.triggerEvent('the_tap')
     }
   }

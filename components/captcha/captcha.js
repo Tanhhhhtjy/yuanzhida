@@ -5,7 +5,7 @@ Component({
   data: {
     'image_url': '/assets/image/captcha.png',
     'reset_text': '重置',
-    'button_disabled': true,
+    'button_disabled': false,
     'cookie': '',
     'code': ''
   },
@@ -17,9 +17,7 @@ Component({
       this.get_captcha()
     },
     onInput: function (e) {
-      let temp = {}
-      temp[e.currentTarget.dataset.label] = e.detail.detail.value
-      this.setData(temp)
+      this.setData({ 'code': e.detail.value })
     },
     get_captcha: function () {
       api.login_code().then(res => {

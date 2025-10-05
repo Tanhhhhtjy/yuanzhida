@@ -5,6 +5,10 @@
   gap: 30rpx;
 }
 
+.column {
+  flex-direction: column;
+}
+
 .label,
 .input-box {
   height: 45rpx;
@@ -20,4 +24,8 @@
   padding-bottom: 3rpx;
   flex: 1;
   border-bottom: 1px solid black;
+}
+
+.textarea {
+  width: 100%;
 }
