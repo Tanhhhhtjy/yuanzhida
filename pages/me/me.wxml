@@ -1,2 +1,20 @@
-<!--pages/me/me.wxml-->
-<text>pages/me/me.wxml</text>
+<block wx:if="{{username}}">
+  <view class="container">
+    <view class="username">{{username}}</view>
+    <the-button text="退出登录" bind:the_tap="logout"></the-button>
+  </view>
+</block>
+<block wx:else>
+  <view class="container">
+    <view class="button">
+      <navigator url="/pages/login/login">
+        <the-button text="登录"></the-button>
+      </navigator>
+    </view>
+    <view class="button">
+      <navigator url="/pages/register/register">
+        <the-button text="注册"></the-button>
+      </navigator>
+    </view>
+  </view>
+</block>

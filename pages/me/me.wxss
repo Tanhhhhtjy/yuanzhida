@@ -1,1 +1,9 @@
-/* pages/me/me.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
+}
+
+.username {
+  font-size: 80rpx;
+}

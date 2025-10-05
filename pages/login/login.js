@@ -20,11 +20,19 @@ Page({
   submit_login: function (e) {
     api.login(this.data.outputItems['username'], this.data.outputItems['password'], e.detail.code, e.detail.cookie).then(res => {
       auth.saveAuth(this.data.outputItems['username'], res)
-      wx.reLaunch({
-        url: '/pages/subjects/subjects',
+      wx.showToast({
+        title: '登录成功',
       })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: '/pages/subjects/subjects',
+        })
+      }, 2000);
     }).catch(e => {
-      console.log(e);
+      wx.showModal({
+        title: '登录失败',
+        content: e
+      })
     })
   },
   captcha_hide: function () {

@@ -1,6 +1,0 @@
-<view class="button">
-  <navigator url="/pages/login/login"><text>登录</text></navigator>
-</view>
-<view class="button">
-  <navigator url="/pages/register/register"><text>注册</text></navigator>
-</view>

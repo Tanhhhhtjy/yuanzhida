@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "the-button":"/components/button/button"
+  }
 }

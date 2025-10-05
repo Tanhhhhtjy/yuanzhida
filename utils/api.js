@@ -9,7 +9,9 @@ function getHeader() {
 export function login(username, password, code, cookie) {
   let data = { 'username': username, 'password': password, 'code': code }
   return new Promise((resolve, reject) => {
-    request({ method: api['login'].method, relativeUrl: api['login'].url, header: { 'cookie': cookie }, data: data }).then(res => resolve(res.token)).catch(e => { reject(e) })
+    request({ method: api['login'].method, relativeUrl: api['login'].url, header: { 'cookie': cookie }, data: data })
+      .then(res => resolve(res.token))
+      .catch(reject)
   })
 }
 export function login_code() {
@@ -19,7 +21,8 @@ export function login_code() {
       success: (res) => {
         let data = { 'filePath': res.tempFilePath, 'cookie': res.cookies[0] }
         accept(data)
-      }, fail: err => { reject(err) }
+      },
+      fail: reject
     })
   })
 }
@@ -34,16 +37,21 @@ export function uploadImages(filePaths) {
 }
 function _uploadImagePromise(filePaths, index, outputList) {
   return new Promise((resolve, reject) => {
-    oss_upload(filePaths[index]).then(res => {
-      outputList = outputList.concat(res)
-      if (index + 1 < filePaths.length) {
-        _uploadImagePromise(filePaths, index + 1, outputList)
-          .then(resolve)
-          .catch(reject)
-      } else {
-        resolve(outputList)
-      }
-    }).catch(reject)
+    if (filePaths.length == 0) {
+      resolve([])
+    }
+    oss_upload(filePaths[index])
+      .then(res => {
+        outputList = outputList.concat(res)
+        if (index + 1 < filePaths.length) {
+          _uploadImagePromise(filePaths, index + 1, outputList)
+            .then(resolve)
+            .catch(reject)
+        } else {
+          resolve(outputList)
+        }
+      })
+      .catch(reject)
   })
 }
 export function oss_upload(filePath) {
@@ -54,11 +62,11 @@ export function oss_upload(filePath) {
       url: baseUrl + api['oss_upload'].url,
       header: getHeader(),
       success: res => {
-        if (res.statusCode == 200) {
-          let objData = JSON.parse(res.data)
-          if (objData.code == 0) {
-            resolve(objData.data)
-          }
+        let objData = JSON.parse(res.data)
+        if (objData.code == 0) {
+          resolve(objData.data)
+        } else {
+          reject(objData.message)
         }
       },
       fail: reject
@@ -66,11 +74,12 @@ export function oss_upload(filePath) {
   })
 }
 export function newQuestion(data) {
-  return uploadImages(data['images']).then(res => {
-    let newImages = res.join(',')
-    data['images'] = newImages
-    return request({ relativeUrl: api['newQuestion'].url, method: api['newQuestion'].method, header: getHeader(), data: data })
-  })
+  return uploadImages(data['images'])
+    .then(res => {
+      let newImages = res.join(',')
+      data['images'] = newImages
+      return request({ relativeUrl: api['newQuestion'].url, method: api['newQuestion'].method, header: getHeader(), data: data })
+    })
 }
 const baseUrl = 'http://43.143.231.162:8000'
 const api = {
@@ -90,19 +99,18 @@ function request({ method = 'GET', relativeUrl, params = {}, header = null, data
   }
   return new Promise((accept, reject) => {
     wx.request({
-      url: url,
-      method: method,
-      header: header,
-      data: data
-      , success: (res) => {
+      url: url, method: method, header: header, data: data,
+      success: (res) => {
         if (res.data.code == 0) {
+          // here parse the data
           accept(res.data.data)
+        } else if (res.data.message) {
+          reject(res.data.message)
         } else {
           reject(res)
         }
-      }, fail: (err) => {
-        reject(err)
-      }
+      },
+      fail: reject
     })
   })
 }

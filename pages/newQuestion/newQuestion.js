@@ -12,7 +12,25 @@ Page({
     this.setData({ 'outputItems': e.detail })
   },
   onSubmit: function () {
+    wx.showLoading({
+      title: '正在请求',
+    })
     api.newQuestion(this.data.outputItems)
-    .then(res => { console.log(res); })
+      .then(() => {
+        wx.showToast({
+          title: '新建问题成功',
+        })
+        setTimeout(() => {
+          wx.reLaunch({
+            url: '/pages/questions/questions?id=' + this.data.outputItems['categoryId'],
+          })
+        }, 1000);
+      })
+      .catch(e => {
+        console.error('新建问题失败\n', e);
+        wx.showToast({
+          title: '新建问题失败',
+        })
+      })
   }
 })

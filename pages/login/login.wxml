@@ -1,5 +1,4 @@
 <the-toptip text="{{toptipText}}"></the-toptip>
-
 <the-input-group inputItems="{{inputItems}}" bind:input="onInput">
 </the-input-group>
 <the-button text="提交" bind:the_tap="onSubmit"></the-button>
