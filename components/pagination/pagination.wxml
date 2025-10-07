@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="item {{item==now?'now':''}}" wx:for="{{indexList}}" wx:key="*this">
+    <block wx:if="{{item==now}}">
+      {{item}}
+    </block>
+    <navigator open-type="reLaunch" wx:else url="{{pathPrefix+item}}">
+      {{item}}
+    </navigator>
+  </view>
+  <the-input-group class="input" inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
+  <the-button text="确认" bind:the_tap="submitRedirect" size="small"></the-button>
+</view>

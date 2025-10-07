@@ -5,6 +5,11 @@ const auth = require('./auth')
 export function load_subjects() {
   api.subjects().then(res => {
     data.saveSubjects(util.add_oss_prefix_subjects(res))
+  }).catch(err => {
+    wx.showToast({
+      title: err,
+      icon: 'error'
+    })
   })
 }
 export function auto_logout() {

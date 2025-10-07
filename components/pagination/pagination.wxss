@@ -1,0 +1,13 @@
+.container{
+  display: flex;
+  flex-direction: two;
+  gap: 25rpx;
+  font-size: 50rpx;
+  padding: 0 30rpx;
+}
+.input{
+  flex: 1;
+}
+.now{
+  color: red;
+}

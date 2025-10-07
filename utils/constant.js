@@ -1,4 +1,4 @@
-export const baseUrl = 'http://43.143.231.162:8000'
+export const baseUrl = 'https://yuanzhida.work:8000'
 export const OSS_HOST = 'https://yuanzhida-cos-1352975306.cos.ap-beijing.myqcloud.com/'
 export const api = {
   'login': { 'url': '/api/answerly/v1/user/login', 'method': 'POST' },

@@ -5,6 +5,10 @@
   font-size: 90rpx;
   border: blue 1px solid;
 }
+.small{
+  font-size: 40rpx;
+  padding: 10rpx;
+}
 
 .disabled {
   background-color: #D9D9D9;

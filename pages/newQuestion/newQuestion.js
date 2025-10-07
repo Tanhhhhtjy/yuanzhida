@@ -23,7 +23,7 @@ Page({
         })
         setTimeout(() => {
           wx.reLaunch({
-            url: '/pages/questions/questions?id=' + this.data.outputItems['categoryId'],
+            url: '/pages/questions/questions?categoryId=' + this.data.outputItems['categoryId'],
           })
         }, 1000);
       })

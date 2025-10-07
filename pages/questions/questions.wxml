@@ -1,15 +1,16 @@
-<scroll-view class="container">
+<scroll-view class="container" scroll-y="true">
   <view class="image-box">
     <image class="image" src="{{subject_image}}" mode="widthFix" />
   </view>
   <view class="list">
     <view wx:for="{{questions}}" class="item" wx:key="id">
       <view class="title">
-        <navigator url="{{'/pages/'}}">
+        <navigator url="{{'/pages/detail/detail?id='+item.id}}">
           {{item.title}}
         </navigator>
       </view>
       <view class="content">{{item.content}}</view>
     </view>
   </view>
+  <the-pagination  total="{{pageTotal}}" now="{{pageNow}}" pathPrefix="{{'/pages/questions/questions?categoryId='+categoryId+'&current='}}"></the-pagination>
 </scroll-view>

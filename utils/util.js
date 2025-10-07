@@ -3,7 +3,6 @@ export function add_oss_prefix(relativeUrl) {
   return `${OSS_HOST}${relativeUrl}`
 }
 export function add_oss_prefix_images(images) {
-  console.log(images);
   return images.map(i => OSS_HOST + i)
 }
 export function add_oss_prefix_subjects(subjects) {
@@ -30,4 +29,9 @@ export function shortQuestionContent(questions) {
     newQuestions.push(q)
   }
   return newQuestions
+}
+export function GenerateNumList(a, b) {
+  let list = []
+  for (let i = a; i <= b; i++)list.push(i)
+  return list
 }

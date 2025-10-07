@@ -24,46 +24,11 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/detail/detail",
-          "pathName": "pages/detail/detail",
-          "query": "id=3",
-          "scene": null,
-          "launchMode": "default"
-        },
-        {
-          "name": "pages/register/register",
-          "pathName": "pages/register/register",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "pages/newQuestion/newQuestion",
-          "pathName": "pages/newQuestion/newQuestion",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
           "name": "pages/questions/questions",
           "pathName": "pages/questions/questions",
-          "query": "id=1",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "pages/login/login",
-          "pathName": "pages/login/login",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "pages/noLogin/noLogin",
-          "pathName": "pages/noLogin/noLogin",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
+          "query": "categoryId=1&current=3",
+          "scene": null,
+          "launchMode": "default"
         }
       ]
     }

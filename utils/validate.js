@@ -5,6 +5,10 @@ export function register(data) {
     length_validate(password, '密码', 8, 20) ||
     length_validate(code, 6, 6)
 }
+export function newQuestion(data) {
+  let { title, content } = data
+  return length_validate(title, '题目', 5, 20) || length_validate(content, '内容', 5, 600)
+}
 function length_validate(value = '', title, min_length, max_length) {
   if (value.length < min_length) {
     return Promise.reject(`${title}不足${min_length}字`)

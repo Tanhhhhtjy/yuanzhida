@@ -39,6 +39,7 @@ export function login_code() {
   })
 }
 export function questions(params) {
+
   return request({ relativeUrl: api['questions'].url, params: params })
 }
 export function subjects() {
@@ -92,6 +93,8 @@ export function comments(params) {
   return request({ relativeUrl: api['comments'].url, params: params })
 }
 export function newQuestion(data) {
+  let validateResult = validate.newQuestion(data)
+  if (validateResult) return validateResult
   return uploadImages(data['images'])
     .then(res => {
       let newImages = res.join(',')

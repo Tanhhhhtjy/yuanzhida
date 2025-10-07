@@ -13,7 +13,8 @@ Page({
     'title': '',
     'content': '',
     'images': [],
-    'subject_name': ''
+    'subject_name': '',
+    'comments': []
   },
 
   onLoad(options) {
@@ -22,7 +23,7 @@ Page({
     api.questionDetail(id)
       .then(res => {
         let subjects = data.getSubjects(id)
-        this.setData({ 'title': res.title, 'content': res.content, 'images': util.add_oss_prefix_images(res.images.split(',')), 'subject_name': subjects[res.categoryId].name })
+        this.setData({ 'title': res.title, 'content': res.content, 'images': res.images ? util.add_oss_prefix_images(res.images.split(',')) : [], 'subject_name': subjects[res.categoryId].name })
       }).catch(e => {
         wx.showToast({
           title: e,
@@ -32,6 +33,7 @@ Page({
 
     api.comments({ 'questionId': id, size: 10, current: 1 })
       .then(res => {
+        this.setData({ 'comments': res })
         console.log(res);
       }).catch(e => {
         console.error(e);
@@ -48,14 +50,17 @@ Page({
     wx.showLoading({
       title: '正在提交',
     })
-    api.newAnswer(outputItems).then(res => {
+    api.newAnswer(outputItems).then(() => {
       wx.hideLoading()
       wx.showToast({
         title: '提交成功',
       })
-      setTimeout(() => {
-        wx.redirectTo('/pages/detail/detail?id=' + this.data.questionId)
-      }, 2000);
+    }).catch(err=>{
+      wx.hideLoading()
+      wx.showToast({
+        title: err,
+        icon:'error'
+      })
     })
   }
 })

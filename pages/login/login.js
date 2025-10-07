@@ -4,7 +4,7 @@ Page({
   data: {
     inputItems: [
       { type: 'text', key: 'username', title: '用户名' },
-      { type: 'text', key: 'password', title: '密码' }],
+      { type: 'text', key: 'password', title: '密码', password: true }],
     outputItems: {},
     'code': '',
     'cookie': '',

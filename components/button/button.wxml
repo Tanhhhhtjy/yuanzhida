@@ -1,1 +1,1 @@
-<view class="button {{disabled?'disabled':''}}" bind:tap="_ontap">{{text}}</view>
+<view class="button {{disabled?'disabled':''}} {{size}}"   bind:tap="_ontap">{{text}}</view>

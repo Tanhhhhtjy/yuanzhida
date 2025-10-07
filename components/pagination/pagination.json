@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "the-input-group":"/components/input-group/input-group",
+    "the-button":"/components/button/button"
+  }
+}
