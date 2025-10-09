@@ -31,12 +31,19 @@ Page({
         })
       })
 
-    api.comments({ 'questionId': id, size: 10, current: 1 })
+    api.comments({ 'id': id, size: 10, current: 1 })
       .then(res => {
-        this.setData({ 'comments': res })
-        console.log(res);
+        let records = res.records
+        let newRecords = []
+        for (let record of records) {
+          record.images = record.images ? util.add_oss_prefix_images(record.images.split(',')) : []
+          newRecords.push(record)
+        }
+        this.setData({ 'comments': newRecords })
       }).catch(e => {
-        console.error(e);
+        wx.showToast({
+          title: `获取解答失败${e}`,
+        })
       })
   },
   onInput: function (e) {
@@ -55,11 +62,11 @@ Page({
       wx.showToast({
         title: '提交成功',
       })
-    }).catch(err=>{
+    }).catch(err => {
       wx.hideLoading()
       wx.showToast({
         title: err,
-        icon:'error'
+        icon: 'error'
       })
     })
   }
