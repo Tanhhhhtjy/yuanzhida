@@ -20,17 +20,5 @@
     "ignoreDevUnusedFiles": true
   },
   "libVersion": "3.10.0",
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "pages/questions/questions",
-          "pathName": "pages/questions/questions",
-          "query": "categoryId=1&current=3",
-          "scene": null,
-          "launchMode": "default"
-        }
-      ]
-    }
-  }
+  "condition": {}
 }

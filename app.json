@@ -2,7 +2,6 @@
   "pages": [
     "pages/subjects/subjects",
     "pages/me/me",
-    "pages/noLogin/noLogin",
     "pages/newQuestion/newQuestion",
     "pages/login/login",
     "pages/register/register",

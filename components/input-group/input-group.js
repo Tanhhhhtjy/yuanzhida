@@ -14,6 +14,7 @@ Component({
       this.setData({ 'outputItems': outputItems })
       this.triggerEvent('input', outputItems)
     },
+
     onInput: function (e) {
       this.updateOutput(e.detail.key, e.detail.value)
     }

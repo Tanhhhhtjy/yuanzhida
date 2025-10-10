@@ -8,6 +8,12 @@ Component({
     'canAddImage': true,
     'addImageText': '添加图片'
   },
+  lifetimes: {
+    attached: function () {
+      this.setData({ 'images': this.data.initImages })
+      this.trigger()
+    }
+  },
   methods: {
     addImage: function () {
       wx.chooseMedia({
@@ -45,12 +51,6 @@ Component({
     },
     trigger: function () {
       this.triggerEvent('input', { key: 'images', value: this.data.images })
-    }
-  },
-  lifetimes: {
-    attached: function () {
-      this.setData({ 'images': this.data.initImages })
-      this.trigger()
     }
   }
 })
