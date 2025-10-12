@@ -3,14 +3,16 @@
     <image class="image" src="{{subject_image}}" mode="widthFix" />
   </view>
   <view class="list">
-    <view wx:for="{{questions}}" class="item" wx:key="id">
+    <view wx:for="{{questions}}" class="question-item" wx:key="id">
       <view class="title">
         <navigator url="{{'/pages/detail/detail?id='+item.id}}">
           {{item.title}}
         </navigator>
       </view>
+      <the-user-and-time time="{{item.createTime}}"></the-user-and-time>
       <view class="content">{{item.content}}</view>
+      <the-question-info solvedFlag="{{item.solvedFlag}}" viewCount="{{item.viewCount}}" likeCount="{{item.likeCount}}" commentCount="{{commentCount}}"></the-question-info>
     </view>
   </view>
-  <the-pagination  total="{{pageTotal}}" now="{{pageNow}}" pathPrefix="{{'/pages/questions/questions?categoryId='+categoryId+'&current='}}"></the-pagination>
+  <the-pagination total="{{pageTotal}}" now="{{pageNow}}" pathPrefix="{{'/pages/questions/questions?categoryId='+categoryId+'&current='}}"></the-pagination>
 </scroll-view>

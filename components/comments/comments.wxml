@@ -1,0 +1,7 @@
+<view class="container">
+  <view wx:for="{{comments}}" wx:key="id">
+    <the-user-and-time username="{{item.username}}" time="{{item.createTime}}"></the-user-and-time>
+    <view class="content">{{item.content}}</view>
+    <the-images-preview images="{{item.images}}"></the-images-preview>
+  </view>
+</view>

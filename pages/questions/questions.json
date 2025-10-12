@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "the-pagination": "/components/pagination/pagination"
+    "the-pagination": "/components/pagination/pagination",
+    "the-user-and-time": "/components/user-and-time/user-and-time",
+    "the-question-info": "/components/question-info/question-inifo"
   }
 }

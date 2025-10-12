@@ -22,7 +22,7 @@ export function shortText(text) {
   }
   return text
 }
-export function shortQuestionContent(questions) {
+export function parseQuestionItem(questions) {
   let newQuestions = []
   for (let q of questions) {
     q.content = shortText(q.content)
@@ -34,4 +34,8 @@ export function GenerateNumList(a, b) {
   let list = []
   for (let i = a; i <= b; i++)list.push(i)
   return list
+}
+export function parseTime(time) {
+  const t = new Date(time)
+  return `${t.getFullYear()}-${('' + t.getMonth()).padStart(2, '0')}-${('' + t.getDate()).padStart(2, '0')} ${('' + t.getHours()).padStart(2, '0')}:${('' + t.getMinutes()).padStart(2, '0')}`
 }

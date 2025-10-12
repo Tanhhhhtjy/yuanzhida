@@ -12,8 +12,6 @@ Page({
     'pageNow': 1
   },
   onLoad(options) {
-    console.log(options);
-    console.log('/pages/questions/questions?current='+this.data.current+'&categoryId='+this.data.categoryId);
     let page = options.current || 1
     let categoryId = options.categoryId
     this.setData({ 'categoryId': categoryId, 'page': page, 'subject_image': data.getSubjectImage(categoryId) })
@@ -25,8 +23,7 @@ Page({
       let itemSize = res.size
       let pageNow = res.current
       let pageTotal = parseInt((itemTotal + itemSize - 1) / itemSize)
-      this.setData({ 'questions': util.shortQuestionContent(res.records), 'pageTotal': pageTotal, 'pageNow': pageNow })
-      
+      this.setData({ 'questions': util.parseQuestionItem(res.records), 'pageTotal': pageTotal, 'pageNow': pageNow })
     })
   }
 

@@ -1,3 +1,7 @@
+.container {
+  height: 100%;
+}
+
 .title {
   font-size: 60rpx;
 }

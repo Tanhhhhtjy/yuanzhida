@@ -15,13 +15,16 @@
   justify-content: center;
   margin: 30rpx auto;
 }
-.item{
+
+.question-item {
   border-bottom: black 1px solid;
   padding: 10rpx;
 }
-.title{
+
+.title {
   font-size: 60rpx;
 }
-.content{
+
+.content {
   font-size: 40rpx;
 }

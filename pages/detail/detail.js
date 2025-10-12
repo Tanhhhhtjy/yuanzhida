@@ -14,7 +14,11 @@ Page({
     'content': '',
     'images': [],
     'subject_name': '',
-    'comments': []
+    'comments': [],
+    'likeCount': 0,
+    commentCount: 0,
+    viewCount: 0,
+    createTime: ''
   },
 
   onLoad(options) {
@@ -23,7 +27,7 @@ Page({
     api.questionDetail(id)
       .then(res => {
         let subjects = data.getSubjects(id)
-        this.setData({ 'title': res.title, 'content': res.content, 'images': res.images ? util.add_oss_prefix_images(res.images.split(',')) : [], 'subject_name': subjects[res.categoryId].name })
+        this.setData({ 'title': res.title, createTime: res.createTime, username: res.username, 'content': res.content, 'images': res.images ? util.add_oss_prefix_images(res.images.split(',')) : [], 'subject_name': subjects[res.categoryId].name })
       }).catch(e => {
         wx.showToast({
           title: e,
