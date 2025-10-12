@@ -13,5 +13,6 @@ export const api = {
   'register': { 'url': '/api/answerly/v1/user', 'method': 'POST' },
   'newAnswer': { 'url': '/api/answerly/v1/comment', 'method': 'POST' },
   'questionDetail': { 'url': '/api/answerly/v1/question/' },
-  'comments': { 'url': '/api/answerly/v1/comment/page' }
+  'comments': { 'url': '/api/answerly/v1/comment/page' },
+  likeQuestion: { url: '/api/answerly/v1/question/like', method: 'POST' }
 }

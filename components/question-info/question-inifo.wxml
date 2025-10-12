@@ -6,7 +6,7 @@
       {{viewCount}}
     </view>
     <view class="item">
-      <image class="icon" src="/assets/image/like.svg" mode="heightFix" />
+      <image class="icon" bind:tap="like" src="/assets/image/like.svg" mode="heightFix" />
       {{likeCount}}
     </view>
     <view class="item">

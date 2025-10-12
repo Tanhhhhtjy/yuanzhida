@@ -2,17 +2,12 @@
   <view class="question">
     <view class="title">{{title}}</view>
     <the-user-and-time username="{{username}}" time="{{createTime}}"></the-user-and-time>
+    <the-question-info canDo="true" questionId="{{questionId}}" entityUserId="{{userId}}" solvedFlag="{{solvedFlag}}" viewCount="{{viewCount}}" likeCount="{{likeCount}}" commentCount="{{commentCount}}"></the-question-info>
     <view class="subject">{{subject_name}}</view>
     <view class="content">{{content}}</view>
     <the-images-preview images="{{images}}"></the-images-preview>
   </view>
   <the-comments comments="{{comments}}"></the-comments>
-  <!-- <view class="comments">
-    <view wx:for="{{comments}}">
-      <view class="content">{{item.content}}</view>
-      <image wx:for="{{item.images}}" wx:for-item="answer_image" src="{{answer_image}}" mode="heightFix" class="image" />
-    </view>
-  </view> -->
   <the-input-group inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
   <the-button text="提交解答" bind:the_tap="submit_answer"></the-button>
 </scroll-view>

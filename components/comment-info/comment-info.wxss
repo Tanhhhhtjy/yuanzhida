@@ -1,1 +1,16 @@
-/* components/comment-info/comment-info.wxss */
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border-bottom: 1px solid black;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+}
+
+.icon {
+  width: 30rpx;
+  height: 30rpx;
+}

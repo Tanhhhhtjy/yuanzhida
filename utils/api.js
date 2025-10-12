@@ -39,7 +39,6 @@ export function login_code() {
   })
 }
 export function questions(params) {
-
   return request({ relativeUrl: api['questions'].url, params: params })
 }
 export function subjects() {
@@ -87,10 +86,10 @@ export function oss_upload(filePath) {
   })
 }
 export function questionDetail(id) {
-  return request({ relativeUrl: api['questionDetail'].url + id })
+  return request({ relativeUrl: api['questionDetail'].url + id, header: getHeader() })
 }
 export function comments(params) {
-  return request({ relativeUrl: api['comments'].url, params: params })
+  return request({ relativeUrl: api['comments'].url, params: params, header: getHeader() })
 }
 export function newQuestion(data) {
   let validateResult = validate.newQuestion(data)
@@ -130,5 +129,12 @@ function request({ method = 'GET', relativeUrl, params = {}, header = null, data
       },
       fail: reject
     })
+  })
+}
+export function likeQuestion(id, entityUserId) {
+  return request({ relativeUrl: api['likeQuestion'].url, method: api['likeQuestion'].method, data: { id: id, entityUserId: entityUserId }, header: getHeader() }).then(res => {
+    return res
+  }).catch(err => {
+    return err
   })
 }
