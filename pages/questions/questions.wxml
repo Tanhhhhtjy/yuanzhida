@@ -2,7 +2,7 @@
   <view class="image-box">
     <image class="image" src="{{subject_image}}" mode="widthFix" />
   </view>
-  <the-keyword-input></the-keyword-input>
+  <the-keyword-input bind:submitKeyword="onSubmitKeyword"></the-keyword-input>
   <view class="list">
     <view wx:for="{{questions}}" class="question-item" wx:key="id">
       <view class="title">

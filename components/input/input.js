@@ -25,6 +25,7 @@ Component({
     },
     updateData: function (s) {
       this.setData({ newValue: s })
+      this.trigger()
     }
   },
   lifetimes: {

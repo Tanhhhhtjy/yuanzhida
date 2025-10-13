@@ -9,7 +9,8 @@ Page({
     categoryId: 1,
     current: 1,
     pageTotal: 1,
-    solvedFilterIndex: 2,
+    keyword: '',
+    solvedFlag: 2,
   },
   onLoad(options) {
     let current = options.current || 1
@@ -17,8 +18,12 @@ Page({
     this.setData({ 'categoryId': categoryId, 'current': current, 'subject_image': data.getSubjectImage(categoryId) })
     this.updateQuestion()
   },
+  onSubmitKeyword: function (e) {
+    this.setData(e.detail)
+    this.updateQuestion()
+  },
   updateQuestion: function () {
-    api.questions({ 'categoryId': this.data.categoryId, size: 10, current: this.data.current, keyword: '', solvedFlag: this.data.solvedFilterIndex }).then(res => {
+    api.questions({ 'categoryId': this.data.categoryId, size: 10, current: this.data.current, keyword: this.data.keyword, solvedFlag: this.data.solvedFlag }).then(res => {
       this.setData({ questions: util.parseQuestionItem(res.records) })
       this.selectComponent('#pagination').updateData({ total: parseInt((res.total + res.size - 1) / res.size), current: this.data.current })
       this.updateUserAndTime()
