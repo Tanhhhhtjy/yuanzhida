@@ -8,6 +8,7 @@
     <the-images-preview images="{{images}}"></the-images-preview>
   </view>
   <the-comments entityUserId="{{entityUserId}}" comments="{{comments}}"></the-comments>
+  <the-pagination bind:redirect="onCommmentRedirect" total="{{pageTotal}}" now="{{pageNow}}"></the-pagination>
   <the-input-group inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
   <the-button text="提交解答" bind:the_tap="submit_answer"></the-button>
 </scroll-view>

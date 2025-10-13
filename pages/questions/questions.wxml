@@ -14,5 +14,5 @@
       <the-question-info solvedFlag="{{item.solvedFlag}}" viewCount="{{item.viewCount}}" likeCount="{{item.likeCount}}" commentCount="{{commentCount}}"></the-question-info>
     </view>
   </view>
-  <the-pagination total="{{pageTotal}}" now="{{pageNow}}" pathPrefix="{{'/pages/questions/questions?categoryId='+categoryId+'&current='}}"></the-pagination>
+  <the-pagination bind:redirect="onRedirect" total="{{pageTotal}}" now="{{pageNow}}"></the-pagination>
 </scroll-view>

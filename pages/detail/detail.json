@@ -5,6 +5,7 @@
     "the-images-preview": "/components/images-preview/images-preview",
     "the-user-and-time": "/components/user-and-time/user-and-time",
     "the-question-info": "/components/question-info/question-inifo",
-    "the-comments": "/components/comments/comments"
+    "the-comments": "/components/comments/comments",
+    "the-pagination": "/components/pagination/pagination"
   }
 }

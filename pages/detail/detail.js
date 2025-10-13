@@ -20,7 +20,9 @@ Page({
     userId: 0,
     commentCount: 0,
     viewCount: 0,
-    createTime: ''
+    createTime: '',
+    commentPageCurrent: 1,
+    commentPageTotal: 1
   },
 
   onLoad(options) {
@@ -36,7 +38,9 @@ Page({
           icon: 'error'
         })
       })
-
+    this.updateComments(id)
+  },
+  updateComments: function (id) {
     api.comments({ 'id': id, size: 10, current: 1 })
       .then(res => {
         let records = res.records
@@ -75,5 +79,8 @@ Page({
         icon: 'error'
       })
     })
+  },
+  onCommmentRedirect: function () {
+
   }
 })

@@ -1,15 +1,12 @@
 const util = require('../../utils/util')
 Component({
-
   properties: {
-    'pathPrefix': { value: '', type: String },
     'now': { value: 1, type: Number },
     'total': { value: 100, type: Number }
   },
 
   data: {
     indexList: [],
-    targetPage: 1,
     inputItems: [
       { type: 'text', key: 'page', title: '跳转' }],
     outputItems: {}
@@ -36,16 +33,14 @@ Component({
     onInput: function (e) {
       this.setData({ 'outputItems': e.detail })
     },
-    submitRedirect: function () {
-      let page = parseInt(this.data.outputItems['page'])
+    submitRedirect: function (e) {
+      let page = e.currentTarget.dataset['page'] || parseInt(this.data.outputItems['page'])
       if (page <= this.data.total && page != this.data.now) {
-        wx.redirectTo({
-          url: this.data.pathPrefix + page,
-        })
+        this.triggerEvent('redirect', page)
       } else {
         wx.showToast({
           title: '无法跳转',
-          icon:'error'
+          icon: 'error'
         })
       }
     }

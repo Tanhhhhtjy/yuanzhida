@@ -13,7 +13,7 @@ Page({
   },
   onLoad(options) {
     let page = options.current || 1
-    let categoryId = options.categoryId
+    const categoryId = options.categoryId
     this.setData({ 'categoryId': categoryId, 'page': page, 'subject_image': data.getSubjectImage(categoryId) })
     this.getQuestion()
   },
@@ -25,6 +25,10 @@ Page({
       let pageTotal = parseInt((itemTotal + itemSize - 1) / itemSize)
       this.setData({ 'questions': util.parseQuestionItem(res.records), 'pageTotal': pageTotal, 'pageNow': pageNow })
     })
+  },
+  onRedirect: function (e) {
+    const page = e.detail
+    this.setData({ page: page })
+    this.getQuestion()
   }
-
 })
