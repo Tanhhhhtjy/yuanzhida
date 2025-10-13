@@ -19,6 +19,9 @@ Component({
     },
     trigger: function () {
       this.triggerEvent('input', { 'key': this.data.key, 'value': this.data.newValue })
+    },
+    clear: function () {
+      this.setData({ newValue: '' })
     }
   },
   lifetimes: {

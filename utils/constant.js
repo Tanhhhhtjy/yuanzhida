@@ -16,5 +16,7 @@ export const api = {
   'comments': { 'url': '/api/answerly/v1/comment/page' },
   likeQuestion: { url: '/api/answerly/v1/question/like', method: 'POST' },
   likeComment: { url: '/api/answerly/v1/comment/like', method: 'POST' },
-  checkLogin: { url: '/api/answerly/v1/user/check-login' }
+  checkLogin: { url: '/api/answerly/v1/user/check-login' },
+  flagSolved: { url: '/api/answerly/v1/question/resolved', method: 'POST' },
+  flagUseful: { url: '/api/answerly/v1/comment/useful', method: 'POST' }
 }

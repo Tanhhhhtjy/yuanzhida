@@ -29,6 +29,9 @@ Component({
         }
       })
     },
+    clear: function () {
+      this.setData({ images: [] })
+    },
     previewImage: function (e) {
       wx.previewImage({
         urls: this.data.images,

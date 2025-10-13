@@ -1,4 +1,5 @@
 const api = require('../../utils/api')
+const data = require('../../utils/data')
 Component({
   data: {
     solvedFlag: false,
@@ -7,11 +8,27 @@ Component({
     likeCount: 0,
     entityUserId: 0,
     questionId: 0,
-    likeStatus: '未登录'
+    likeStatus: '未登录',
+    isOwn: false,
+    username: '',
   },
   methods: {
     updateData: function (d) {
       this.setData(d)
+      this.setData({ isOwn: data.isOwn(this.data.username) })
+    },
+    flagSolved: function () {
+      api.flagSolved(this.data.questionId, !this.data.solvedFlag).then(() => {
+        wx.showToast({
+          title: '标记已经解决',
+        })
+        this.setData({ solvedFlag: !this.data.solvedFlag })
+      }).catch(err => {
+        wx.showToast({
+          title: err,
+          icon: 'error'
+        })
+      })
     },
     likeQuestion: function () {
       if (this.data.likeStatus == '未登录') {

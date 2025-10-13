@@ -7,6 +7,6 @@
       {{item}}
     </view>
   </block>
-  <the-input-group class="input" inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
+  <the-input-group id="input-group" class="input" inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
   <the-button text="确认" bind:the_tap="submitRedirect" size="small"></the-button>
 </view>

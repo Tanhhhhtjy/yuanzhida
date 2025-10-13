@@ -7,11 +7,11 @@ Page({
     question: {},
     questionId: 0,
     CommentPageCurrent: 1,
-    // 'inputItems': [
-    //   { type: 'text', key: 'content', title: '内容', multiLine: true },
-    //   { type: 'images', key: 'images' }
-    // ],
-    // 'outputItems': {},
+    'inputItems': [
+      { type: 'text', key: 'content', title: '内容', multiLine: true },
+      { type: 'images', key: 'images' }
+    ],
+    'outputItems': {},
   },
 
   onLoad(options) {
@@ -30,9 +30,9 @@ Page({
     this.selectComponent('#user-and-time').updateData({ username: this.data.question.username, time: this.data.question.createTime })
   },
   updateQuestionInfo: function () {
-    const { solvedFlag, viewCount, commentCount, likeCount, userId, likeStatus } = this.data.question
+    const { solvedFlag, viewCount, commentCount, username, likeCount, userId, likeStatus } = this.data.question
     this.selectComponent('#question-info').updateData({
-      solvedFlag: solvedFlag, viewCount: viewCount, commentCount: commentCount, likeCount: likeCount, entityUserId: userId, questionId: this.data.questionId, likeStatus: likeStatus
+      solvedFlag: solvedFlag, viewCount: viewCount, commentCount: commentCount, likeCount: likeCount, entityUserId: userId, username: username, questionId: this.data.questionId, likeStatus: likeStatus
     })
   },
   updateQuestion: function () {
@@ -77,6 +77,7 @@ Page({
       wx.showToast({
         title: '提交成功',
       })
+      this.selectComponent('#input-group').clear()
     }).catch(err => {
       wx.hideLoading()
       wx.showToast({

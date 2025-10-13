@@ -14,7 +14,7 @@ export function logout() {
   wx.removeStorageSync('username')
   wx.removeStorageSync('token')
 }
-export function isLogin() {
+export function notExpire() {
   let login_time = wx.getStorageSync('login_time') || 0
   if (Date.now() < login_time + 28 * 24 * 60 * 60 * 1000) {
     return true

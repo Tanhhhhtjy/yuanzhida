@@ -13,7 +13,7 @@ export function load_subjects() {
   })
 }
 export function auto_logout() {
-  if (!auth.isLogin()) auth.logout()
+  if (!auth.notExpire()) auth.logout()
   api.checkLogin().then(res => {
     if (!res) {
       auth.logout()

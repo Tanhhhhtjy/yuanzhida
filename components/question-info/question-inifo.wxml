@@ -1,5 +1,8 @@
 <view class="container">
-  <image src="{{solvedFlag?'/assets/image/done.svg':'/assets/image/undone.svg'}}" class="icon" />
+  <view class="left">
+    <image src="{{solvedFlag?'/assets/image/done.svg':'/assets/image/undone.svg'}}" class="icon" />
+    <the-button size="tiny" wx:if="{{isOwn}}" bind:the_tap="flagSolved" text="标记解决"></the-button>
+  </view>
   <view class="right">
     <view class="item">
       <image class="icon" src="/assets/image/view.svg" mode="heightFix" />

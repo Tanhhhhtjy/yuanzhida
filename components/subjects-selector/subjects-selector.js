@@ -14,6 +14,9 @@ Component({
     },
     trigger: function () {
       this.triggerEvent('input', { key: 'categoryId', value: this.data.subjects[this.data.id]['id'] })
+    },
+    clear: function () {
+      this.setData({ id: 0 })
     }
   },
   lifetimes: {

@@ -21,6 +21,7 @@ Page({
       this.setData({ questions: util.parseQuestionItem(res.records) })
       this.selectComponent('#pagination').updateData({ total: parseInt((res.total + res.size - 1) / res.size), current: this.data.current })
       this.updateUserAndTime()
+      this.updateQuestioniInfo()
     })
   },
   updateUserAndTime: function () {
@@ -32,9 +33,9 @@ Page({
   updateQuestioniInfo: function () {
     const els = this.selectAllComponents('.question-info')
     for (let i in els) {
-      const { solvedFlag, viewCount, commentCount, id, likeCount, userId, likeStatus } = this.data.questions[i]
+      const { solvedFlag, viewCount, commentCount, likeCount, id } = this.data.questions[i]
       els[i].updateData({
-        solvedFlag: solvedFlag, viewCount: viewCount, commentCount: commentCount, likeCount: likeCount, entityUserId: userId, questionId: id, likeStatus: likeStatus
+        solvedFlag: solvedFlag, viewCount: viewCount, commentCount: commentCount, likeCount: likeCount, questionId: id
       })
     }
   },

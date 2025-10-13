@@ -9,6 +9,6 @@
   </view>
   <the-comments id="comments"></the-comments>
   <the-pagination id="pagination" bind:redirect="onCommmentRedirect"></the-pagination>
-  <!-- <the-input-group inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
-  <the-button text="提交解答" bind:the_tap="submit_answer"></the-button> -->
+  <the-input-group id="input-group" inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
+  <the-button text="提交解答" bind:the_tap="submit_answer"></the-button>
 </scroll-view>

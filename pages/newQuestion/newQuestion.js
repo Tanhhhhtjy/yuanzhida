@@ -11,6 +11,9 @@ Page({
   onInput: function (e) {
     this.setData({ 'outputItems': e.detail })
   },
+  onClear:function () {
+    this.selectComponent('#input-group').clear()
+  },
   onSubmit: function () {
     wx.showLoading({
       title: '正在请求',

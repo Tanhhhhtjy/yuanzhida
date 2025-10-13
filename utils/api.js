@@ -140,3 +140,9 @@ export function likeComment(id, entityUserId) {
 export function checkLogin() {
   return request({ relativeUrl: api.checkLogin.url, params: { username: auth.getUsername(), token: auth.getToken() }, header: getHeader() })
 }
+export function flagSolved(id, isSolved) {
+  return request({ relativeUrl: api.flagSolved.url, method: api.flagSolved.method, header: getHeader(), data: { id: id, isSolved: isSolved } })
+}
+export function flagUseful(id) {
+  return request({ relativeUrl: api.flagUseful.url, method: api.flagUseful.method, header: getHeader(), data: { id: id } })
+}

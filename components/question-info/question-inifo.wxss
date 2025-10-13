@@ -1,6 +1,7 @@
 .container,
 .item,
-.right {
+.right,
+.left {
   display: flex;
   flex-direction: row;
 }

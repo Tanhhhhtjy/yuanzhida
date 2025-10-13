@@ -30,9 +30,14 @@ Component({
       this.setData({ 'outputItems': e.detail })
     },
     submitRedirect: function (e) {
-      let page = e.currentTarget.dataset['page'] || parseInt(this.data.outputItems['page'])
+      if (e.currentTarget.dataset['page']) {
+        this.triggerEvent('redirect', e.currentTarget.dataset['page'])
+        return
+      }
+      const page = parseInt(this.data.outputItems['page'])
       if (page <= this.data.total && page != this.data.current) {
         this.triggerEvent('redirect', page)
+        this.selectComponent('#input-group').clear()
       } else {
         wx.showToast({
           title: '无法跳转',

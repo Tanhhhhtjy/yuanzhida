@@ -1,7 +1,7 @@
 <view class="container">
   <view class="item">
-    <image class="icon" src="/assets/image/comment.svg" mode="heightFix" />
-    {{useful}}
+    <the-button size="tiny" wx:if="{{isOwn}}" bind:the_tap="flagUseful" text="{{useful?'取消标记':'标记有用'}}"></the-button>
+    <image class="icon" src="{{useful?'/assets/image/useful.svg':'/assets/image/useless.svg'}}" mode="heightFix" />
     <view class="item">
       <image bind:tap="likeComment" class="icon" src="{{likeStatus=='已点赞'?'/assets/image/like_done.svg':'/assets/image/like.svg'}}" mode="heightFix" />
       {{likeCount}}

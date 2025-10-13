@@ -17,6 +17,9 @@ Component({
 
     onInput: function (e) {
       this.updateOutput(e.detail.key, e.detail.value)
+    },
+    clear: function () {
+      this.selectAllComponents('.input').forEach(i=>i.clear());
     }
   }
 })

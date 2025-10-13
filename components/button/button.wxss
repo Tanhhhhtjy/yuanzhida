@@ -11,6 +11,11 @@
   padding: 10rpx;
 }
 
+.tiny {
+  font-size: 30rpx;
+  padding: 5rpx;
+}
+
 .disabled {
   background-color: #D9D9D9;
 }

@@ -1,15 +1,34 @@
 const api = require('../../utils/api')
+const data = require('../../utils/data')
 Component({
   data: {
     likeStatus: '',
     likeCount: 0,
     entityUserId: 0,
     commentId: 0,
-    useful: 0
+    useful: 0,
+    isOwn: false,
+    username: ''
   },
   methods: {
     updateData: function (d) {
       this.setData(d)
+      this.setData({ isOwn: data.isOwn(this.data.username) })
+    },
+    flagUseful: function () {
+      api.flagUseful(this.data.commentId).then(() => {
+        let text = '已取消标记'
+        if (this.data.useful) text = '已标记有用'
+        wx.showToast({
+          title: text,
+        })
+        this.setData({ useful: !this.data.useful })
+      }).catch(err => {
+        wx.showToast({
+          title: err,
+          icon: 'error'
+        })
+      })
     },
     likeComment: function () {
       if (this.data.likeStatus == '未登录') {
