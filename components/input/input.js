@@ -22,6 +22,9 @@ Component({
     },
     clear: function () {
       this.setData({ newValue: '' })
+    },
+    updateData: function (s) {
+      this.setData({ newValue: s })
     }
   },
   lifetimes: {

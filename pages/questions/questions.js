@@ -9,6 +9,7 @@ Page({
     categoryId: 1,
     current: 1,
     pageTotal: 1,
+    solvedFilterIndex: 2,
   },
   onLoad(options) {
     let current = options.current || 1
@@ -17,7 +18,7 @@ Page({
     this.updateQuestion()
   },
   updateQuestion: function () {
-    api.questions({ 'categoryId': this.data.categoryId, size: 10, current: this.data.current, keyword: '', solvedFlag: 2 }).then(res => {
+    api.questions({ 'categoryId': this.data.categoryId, size: 10, current: this.data.current, keyword: '', solvedFlag: this.data.solvedFilterIndex }).then(res => {
       this.setData({ questions: util.parseQuestionItem(res.records) })
       this.selectComponent('#pagination').updateData({ total: parseInt((res.total + res.size - 1) / res.size), current: this.data.current })
       this.updateUserAndTime()

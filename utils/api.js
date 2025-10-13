@@ -146,3 +146,6 @@ export function flagSolved(id, isSolved) {
 export function flagUseful(id) {
   return request({ relativeUrl: api.flagUseful.url, method: api.flagUseful.method, header: getHeader(), data: { id: id } })
 }
+export function keywordSuggest(s) {
+  return request({ relativeUrl: api.keywordSuggest.url, params: { keyword: s } })
+}
