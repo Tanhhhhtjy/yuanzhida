@@ -132,9 +132,8 @@ function request({ method = 'GET', relativeUrl, params = {}, header = null, data
   })
 }
 export function likeQuestion(id, entityUserId) {
-  return request({ relativeUrl: api['likeQuestion'].url, method: api['likeQuestion'].method, data: { id: id, entityUserId: entityUserId }, header: getHeader() }).then(res => {
-    return res
-  }).catch(err => {
-    return err
-  })
+  return request({ relativeUrl: api['likeQuestion'].url, method: api['likeQuestion'].method, data: { id: id, entityUserId: entityUserId }, header: getHeader() })
+}
+export function likeComment(id, entityUserId) {
+  return request({ relativeUrl: api['likeComment'].url, method: api['likeComment'].method, data: { id: id, entityUserId: entityUserId }, header: getHeader() })
 }

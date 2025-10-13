@@ -1,25 +1,48 @@
-// components/comment-info/comment-info.js
+const api = require('../../utils/api')
 Component({
-
-  /**
-   * 组件的属性列表
-   */
   properties: {
     useful: { type: Number, value: 0 },
-    likeCount: { type: Number, value: 0 }
+    likeCount: { type: Number, value: 0 },
+    entityUserId: { type: Number, value: 0 },
+    commentId: { type: Number, value: 0 },
+    likeStatus: { type: String, value: '未登录' }
   },
-
-  /**
-   * 组件的初始数据
-   */
   data: {
-
+    _likeStatus: '',
+    _likeCount: 0
   },
-
-  /**
-   * 组件的方法列表
-   */
+  lifetimes: {
+    attached: function () {
+      this.setData({ _likeStatus: this.data.likeStatus, _likeCount: this.data.likeCount })
+    }
+  },
   methods: {
-
+    likeComment: function () {
+      if (this.data._likeStatus == '未登录') {
+        wx.showToast({
+          title: '未登录',
+          icon: 'error'
+        })
+        return
+      }
+      api.likeComment(this.data.commentId, this.data.entityUserId).then(res => {
+        if (this.data._likeStatus == '未点赞') {
+          wx.showToast({
+            title: '点赞成功',
+          })
+          this.setData({ _likeStatus: '已点赞', _likeCount: this.data._likeCount + 1 })
+        } else {
+          wx.showToast({
+            title: '取消点赞',
+          })
+          this.setData({ _likeStatus: '未点赞', _likeCount: this.data._likeCount - 1 })
+        }
+      }).catch(err => {
+        wx.showToast({
+          title: err,
+          icon: 'error'
+        })
+      })
+    }
   }
 })

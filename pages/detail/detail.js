@@ -16,6 +16,7 @@ Page({
     'subject_name': '',
     'comments': [],
     'likeCount': 0,
+    likeStatus: '未登录',
     userId: 0,
     commentCount: 0,
     viewCount: 0,
@@ -28,7 +29,7 @@ Page({
     api.questionDetail(id)
       .then(res => {
         let subjects = data.getSubjects(id)
-        this.setData({ 'title': res.title, commentCount: res.commentCount, viewCount: res.viewCount, createTime: res.createTime, likeCount: res.likeCount, username: res.username, 'content': res.content, 'images': res.images ? util.add_oss_prefix_images(res.images.split(',')) : [], 'subject_name': subjects[res.categoryId].name, userId: res.userId })
+        this.setData({ 'title': res.title, commentCount: res.commentCount, viewCount: res.viewCount, createTime: res.createTime, likeCount: res.likeCount, username: res.username, entityUserId: res.userId, 'content': res.content, likeStatus: res.likeStatus, 'images': res.images ? util.add_oss_prefix_images(res.images.split(',')) : [], 'subject_name': subjects[res.categoryId].name, userId: res.userId })
       }).catch(e => {
         wx.showToast({
           title: e,

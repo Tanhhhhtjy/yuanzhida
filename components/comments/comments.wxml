@@ -3,6 +3,6 @@
     <the-user-and-time username="{{item.username}}" time="{{item.createTime}}"></the-user-and-time>
     <view class="content">{{item.content}}</view>
     <the-images-preview images="{{item.images}}"></the-images-preview>
-    <the-comment-info likeCount="{{item.likeCount}}" useful="{{item.useful}}"></the-comment-info>
+    <the-comment-info entityUserId="{{entityUserId}}" commentId="{{item.id}}" likeCount="{{item.likeCount}}" useful="{{item.useful}}" likeStatus="{{item.likeStatus}}"></the-comment-info>
   </view>
 </view>

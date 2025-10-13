@@ -14,5 +14,6 @@ export const api = {
   'newAnswer': { 'url': '/api/answerly/v1/comment', 'method': 'POST' },
   'questionDetail': { 'url': '/api/answerly/v1/question/' },
   'comments': { 'url': '/api/answerly/v1/comment/page' },
-  likeQuestion: { url: '/api/answerly/v1/question/like', method: 'POST' }
+  likeQuestion: { url: '/api/answerly/v1/question/like', method: 'POST' },
+  likeComment: { url: '/api/answerly/v1/comment/like', method: 'POST' },
 }

@@ -6,6 +6,5 @@ export function getSubjects() {
 }
 export function getSubjectImage(id) {
   let res = getSubjects().filter((i) => i.id == id)[0].image
-  console.log(res);
   return res
 }

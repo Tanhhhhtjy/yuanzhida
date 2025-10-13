@@ -2,12 +2,12 @@
   <view class="question">
     <view class="title">{{title}}</view>
     <the-user-and-time username="{{username}}" time="{{createTime}}"></the-user-and-time>
-    <the-question-info canDo="true" questionId="{{questionId}}" entityUserId="{{userId}}" solvedFlag="{{solvedFlag}}" viewCount="{{viewCount}}" likeCount="{{likeCount}}" commentCount="{{commentCount}}"></the-question-info>
+    <the-question-info likeStatus="{{likeStatus}}" canDo="true" questionId="{{questionId}}" entityUserId="{{userId}}" solvedFlag="{{solvedFlag}}" viewCount="{{viewCount}}" likeCount="{{likeCount}}" commentCount="{{commentCount}}"></the-question-info>
     <view class="subject">{{subject_name}}</view>
     <view class="content">{{content}}</view>
     <the-images-preview images="{{images}}"></the-images-preview>
   </view>
-  <the-comments comments="{{comments}}"></the-comments>
+  <the-comments entityUserId="{{entityUserId}}" comments="{{comments}}"></the-comments>
   <the-input-group inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
   <the-button text="提交解答" bind:the_tap="submit_answer"></the-button>
 </scroll-view>
