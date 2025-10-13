@@ -137,3 +137,6 @@ export function likeQuestion(id, entityUserId) {
 export function likeComment(id, entityUserId) {
   return request({ relativeUrl: api['likeComment'].url, method: api['likeComment'].method, data: { id: id, entityUserId: entityUserId }, header: getHeader() })
 }
+export function checkLogin() {
+  return request({ relativeUrl: api.checkLogin.url, params: { username: auth.getUsername(), token: auth.getToken() }, header: getHeader() })
+}

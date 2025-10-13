@@ -1,8 +1,8 @@
 <view class="container">
   <view wx:for="{{comments}}" wx:key="id">
-    <the-user-and-time username="{{item.username}}" time="{{item.createTime}}"></the-user-and-time>
+    <the-user-and-time class="user-and-time"></the-user-and-time>
     <view class="content">{{item.content}}</view>
     <the-images-preview images="{{item.images}}"></the-images-preview>
-    <the-comment-info entityUserId="{{entityUserId}}" commentId="{{item.id}}" likeCount="{{item.likeCount}}" useful="{{item.useful}}" likeStatus="{{item.likeStatus}}"></the-comment-info>
+    <the-comment-info class="comment-info"></the-comment-info>
   </view>
 </view>

@@ -1,32 +1,28 @@
 const util = require('../../utils/util')
 Component({
-  properties: {
-    'now': { value: 1, type: Number },
-    'total': { value: 100, type: Number }
-  },
-
   data: {
+    current: 1,
+    total: 1,
     indexList: [],
     inputItems: [
       { type: 'text', key: 'page', title: '跳转' }],
     outputItems: {}
   },
-  observers: {
-    'total': function () {
-      this.updateIndexList()
-    }
-  },
   methods: {
+    updateData: function (d) {
+      this.setData(d)
+      this.updateIndexList()
+    },
     updateIndexList: function () {
-      let now = this.data.now
+      let current = this.data.current
       let total = this.data.total
       let indexList = []
       if (total <= 5) {
         indexList = util.GenerateNumList(1, total)
-      } else if (total > now + 1) {
-        indexList = [1, 2, now - 1, now, now + 1, total]
+      } else if (total > current + 1) {
+        indexList = [1, 2, current - 1, current, current + 1, total]
       } else {
-        indexList = [1, 2, util.GenerateNumList(now - 1, total)]
+        indexList = [1, 2, util.GenerateNumList(current - 1, total)]
       }
       this.setData({ 'indexList': indexList })
     },
@@ -35,7 +31,7 @@ Component({
     },
     submitRedirect: function (e) {
       let page = e.currentTarget.dataset['page'] || parseInt(this.data.outputItems['page'])
-      if (page <= this.data.total && page != this.data.now) {
+      if (page <= this.data.total && page != this.data.current) {
         this.triggerEvent('redirect', page)
       } else {
         wx.showToast({
@@ -43,11 +39,6 @@ Component({
           icon: 'error'
         })
       }
-    }
-  },
-  lifetimes: {
-    attached: function () {
-      this.updateIndexList()
     }
   }
 })

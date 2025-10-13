@@ -4,6 +4,10 @@ export function saveSubjects(_subjects) {
 export function getSubjects() {
   return wx.getStorageSync('subjects') || []
 }
+export function getSubjectName(id) {
+  let res = getSubjects().filter((i) => i.id == id)[0].name
+  return res
+}
 export function getSubjectImage(id) {
   let res = getSubjects().filter((i) => i.id == id)[0].image
   return res

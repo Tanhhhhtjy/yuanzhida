@@ -10,4 +10,5 @@
 
 .avatar {
   height: 30rpx;
+  width: 30rpx;
 }

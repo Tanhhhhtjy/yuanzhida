@@ -1,3 +1,3 @@
 <view class="container">
-  <image wx:key="*this" bind:tap="previewImage" data-index="{{index}}" wx:for="{{images}}" style="height: {{height}};" src="{{item}}" mode="heightFix" />
+  <image class="image" wx:key="*this" bind:tap="previewImage" data-index="{{index}}" wx:for="{{images}}" src="{{item}}" mode="heightFix" />
 </view>

@@ -4,31 +4,42 @@ const util = require('../../utils/util')
 Page({
 
   data: {
-    'subject_image': '',
-    'questions': [],
-    'categoryId': 1,
-    'current': 1,
-    'pageTotal': 1,
-    'pageNow': 1
+    subject_image: '',
+    questions: [],
+    categoryId: 1,
+    current: 1,
+    pageTotal: 1,
   },
   onLoad(options) {
-    let page = options.current || 1
+    let current = options.current || 1
     const categoryId = options.categoryId
-    this.setData({ 'categoryId': categoryId, 'page': page, 'subject_image': data.getSubjectImage(categoryId) })
-    this.getQuestion()
+    this.setData({ 'categoryId': categoryId, 'current': current, 'subject_image': data.getSubjectImage(categoryId) })
+    this.updateQuestion()
   },
-  getQuestion: function () {
-    api.questions({ 'categoryId': this.data.categoryId, size: 10, current: this.data.page, keyword: '', solvedFlag: 2 }).then(res => {
-      let itemTotal = res.total
-      let itemSize = res.size
-      let pageNow = res.current
-      let pageTotal = parseInt((itemTotal + itemSize - 1) / itemSize)
-      this.setData({ 'questions': util.parseQuestionItem(res.records), 'pageTotal': pageTotal, 'pageNow': pageNow })
+  updateQuestion: function () {
+    api.questions({ 'categoryId': this.data.categoryId, size: 10, current: this.data.current, keyword: '', solvedFlag: 2 }).then(res => {
+      this.setData({ questions: util.parseQuestionItem(res.records) })
+      this.selectComponent('#pagination').updateData({ total: parseInt((res.total + res.size - 1) / res.size), current: this.data.current })
+      this.updateUserAndTime()
     })
   },
+  updateUserAndTime: function () {
+    const els = this.selectAllComponents('.user-and-time')
+    for (let i in els) {
+      els[i].updateData({ username: this.data.questions[i].username || '用户名', time: util.parseTime(this.data.questions[i].createTime) })
+    }
+  },
+  updateQuestioniInfo: function () {
+    const els = this.selectAllComponents('.question-info')
+    for (let i in els) {
+      const { solvedFlag, viewCount, commentCount, id, likeCount, userId, likeStatus } = this.data.questions[i]
+      els[i].updateData({
+        solvedFlag: solvedFlag, viewCount: viewCount, commentCount: commentCount, likeCount: likeCount, entityUserId: userId, questionId: id, likeStatus: likeStatus
+      })
+    }
+  },
   onRedirect: function (e) {
-    const page = e.detail
-    this.setData({ page: page })
-    this.getQuestion()
+    this.setData({ current: e.detail })
+    this.updateQuestion()
   }
 })

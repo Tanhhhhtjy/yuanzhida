@@ -6,8 +6,8 @@
       {{viewCount}}
     </view>
     <view class="item">
-      <image bind:tap="likeQuestion" class="icon" src="{{_likeStatus=='已点赞'?'/assets/image/like_done.svg':'/assets/image/like.svg'}}" mode="heightFix" />
-      {{_likeCount}}
+      <image bind:tap="likeQuestion" class="icon" src="{{likeStatus=='已点赞'?'/assets/image/like_done.svg':'/assets/image/like.svg'}}" mode="heightFix" />
+      {{likeCount}}
     </view>
     <view class="item">
       <image class="icon" src="/assets/image/comment.svg" mode="heightFix" />

@@ -4,53 +4,58 @@ const util = require('../../utils/util')
 Page({
 
   data: {
-    'questionId': 0,
-    'inputItems': [
-      { type: 'text', key: 'content', title: '内容', multiLine: true },
-      { type: 'images', key: 'images' }
-    ],
-    'outputItems': {},
-    'title': '',
-    'content': '',
-    'images': [],
-    'subject_name': '',
-    'comments': [],
-    'likeCount': 0,
-    likeStatus: '未登录',
-    userId: 0,
-    commentCount: 0,
-    viewCount: 0,
-    createTime: '',
-    commentPageCurrent: 1,
-    commentPageTotal: 1
+    question: {},
+    questionId: 0,
+    CommentPageCurrent: 1,
+    // 'inputItems': [
+    //   { type: 'text', key: 'content', title: '内容', multiLine: true },
+    //   { type: 'images', key: 'images' }
+    // ],
+    // 'outputItems': {},
   },
 
   onLoad(options) {
-    let id = options.id
-    this.setData({ 'questionId': id })
-    api.questionDetail(id)
+    this.setData({ questionId: options.id })
+    this.updateQuestion().then(() => {
+      this.updateUserAndTime()
+      this.updateQuestionInfo()
+      this.updateImagesPreview()
+    })
+    this.updateComments()
+  },
+  updateImagesPreview: function () {
+    this.selectComponent('#images-preview').updateData({ images: this.data.question.images })
+  },
+  updateUserAndTime: function () {
+    this.selectComponent('#user-and-time').updateData({ username: this.data.question.username, time: this.data.question.createTime })
+  },
+  updateQuestionInfo: function () {
+    const { solvedFlag, viewCount, commentCount, likeCount, userId, likeStatus } = this.data.question
+    this.selectComponent('#question-info').updateData({
+      solvedFlag: solvedFlag, viewCount: viewCount, commentCount: commentCount, likeCount: likeCount, entityUserId: userId, questionId: this.data.questionId, likeStatus: likeStatus
+    })
+  },
+  updateQuestion: function () {
+    return api.questionDetail(this.data.questionId)
       .then(res => {
-        let subjects = data.getSubjects(id)
-        this.setData({ 'title': res.title, commentCount: res.commentCount, viewCount: res.viewCount, createTime: res.createTime, likeCount: res.likeCount, username: res.username, entityUserId: res.userId, 'content': res.content, likeStatus: res.likeStatus, 'images': res.images ? util.add_oss_prefix_images(res.images.split(',')) : [], 'subject_name': subjects[res.categoryId].name, userId: res.userId })
+        res.images = util.parseImages(res.images)
+        res.createTime = util.parseTime(res.createTime)
+        res.subject_name = data.getSubjectName(res.categoryId)
+        this.setData({ question: res })
       }).catch(e => {
         wx.showToast({
           title: e,
           icon: 'error'
         })
       })
-    this.updateComments(id)
   },
-  updateComments: function (id) {
-    api.comments({ 'id': id, size: 10, current: 1 })
+  updateComments: function () {
+    api.comments({ 'id': this.data.questionId, size: 10, current: this.data.CommentPageCurrent })
       .then(res => {
-        let records = res.records
-        let newRecords = []
-        for (let record of records) {
-          record.images = record.images ? util.add_oss_prefix_images(record.images.split(',')) : []
-          newRecords.push(record)
-        }
-        this.setData({ 'comments': newRecords })
-      }).catch(e => {
+        this.selectComponent('#comments').updateData({ comments: util.add_oss_prefix_comments(res.records), entityUserId: this.data.question.userId })
+        this.selectComponent('#pagination').updateData({ total: parseInt((res.total + res.size - 1) / res.size), current: this.data.CommentPageCurrent })
+      }).catch(err => {
+        console.error(err);
         wx.showToast({
           title: `获取解答失败${e}`,
         })
@@ -80,7 +85,8 @@ Page({
       })
     })
   },
-  onCommmentRedirect: function () {
-
+  onCommmentRedirect: function (e) {
+    this.setData({ CommentPageCurrent: e.detail })
+    this.updateComments()
   }
 })

@@ -1,14 +1,14 @@
 <scroll-view class="container" scroll-y="true">
   <view class="question">
-    <view class="title">{{title}}</view>
-    <the-user-and-time username="{{username}}" time="{{createTime}}"></the-user-and-time>
-    <the-question-info likeStatus="{{likeStatus}}" canDo="true" questionId="{{questionId}}" entityUserId="{{userId}}" solvedFlag="{{solvedFlag}}" viewCount="{{viewCount}}" likeCount="{{likeCount}}" commentCount="{{commentCount}}"></the-question-info>
-    <view class="subject">{{subject_name}}</view>
-    <view class="content">{{content}}</view>
-    <the-images-preview images="{{images}}"></the-images-preview>
+    <view class="title">{{question.title}}</view>
+    <the-user-and-time id="user-and-time"></the-user-and-time>
+    <the-question-info id="question-info"></the-question-info>
+    <view class="subject">{{question.subject_name}}</view>
+    <view class="content">{{question.content}}</view>
+    <the-images-preview id="images-preview"></the-images-preview>
   </view>
-  <the-comments entityUserId="{{entityUserId}}" comments="{{comments}}"></the-comments>
-  <the-pagination bind:redirect="onCommmentRedirect" total="{{pageTotal}}" now="{{pageNow}}"></the-pagination>
-  <the-input-group inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
-  <the-button text="提交解答" bind:the_tap="submit_answer"></the-button>
+  <the-comments id="comments"></the-comments>
+  <the-pagination id="pagination" bind:redirect="onCommmentRedirect"></the-pagination>
+  <!-- <the-input-group inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
+  <the-button text="提交解答" bind:the_tap="submit_answer"></the-button> -->
 </scroll-view>

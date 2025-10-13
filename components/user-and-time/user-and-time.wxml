@@ -1,7 +1,7 @@
 <view class="container">
   <view class="user">
-    <image src="/assets/image/me.png" mode="heightFix" class="avatar" />
+    <image src="{{avatar}}" mode="heightFix" class="avatar" />
     <view>{{username}}</view>
   </view>
-  <view class="time">{{parsedTime}}</view>
+  <view class="time">{{time}}</view>
 </view>

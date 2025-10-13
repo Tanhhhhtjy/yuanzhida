@@ -1,9 +1,11 @@
 Component({
-  properties: {
-    images: { type: Array, value: [] },
-    height: { type: String, value: '300rpx' }
+  data: {
+    images: []
   },
   methods: {
+    updateData: function (d) {
+      this.setData(d)
+    },
     previewImage: function (e) {
       wx.previewImage({
         urls: this.data.images,

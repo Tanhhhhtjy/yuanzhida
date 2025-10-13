@@ -8,6 +8,6 @@
 .input{
   flex: 1;
 }
-.now{
+.current{
   color: red;
 }
