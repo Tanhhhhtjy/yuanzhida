@@ -11,11 +11,19 @@ Component({
       this.updateCommentInfo()
       this.updateImagesPreview()
     },
+    onUpdate: function () {
+      this.triggerEvent('update')
+    },
     updateUserAndTime: function () {
       const els = this.selectAllComponents('.user-and-time')
       for (let i in els) {
         els[i].updateData({ username: this.data.comments[i].username, time: util.parseTime(this.data.comments[i].createTime) })
       }
+    },
+    onCorrentComment: function (e) {
+      const id = e.currentTarget.dataset.id
+      const comment = this.data.comments.filter(i => i.id == id)[0]
+      this.triggerEvent('correctComment', comment)
     },
     updateImagesPreview: function () {
       const els = this.selectAllComponents('.images-preview')

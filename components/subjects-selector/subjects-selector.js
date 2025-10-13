@@ -7,6 +7,9 @@ Component({
   },
 
   methods: {
+    updateData: function () {
+
+    },
     onPickerChange: function (e) {
       let id = e.detail.value
       this.setData({ 'id': id })

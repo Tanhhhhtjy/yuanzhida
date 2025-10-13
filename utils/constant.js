@@ -19,5 +19,9 @@ export const api = {
   checkLogin: { url: '/api/answerly/v1/user/check-login' },
   flagSolved: { url: '/api/answerly/v1/question/resolved', method: 'POST' },
   flagUseful: { url: '/api/answerly/v1/comment/useful', method: 'POST' },
-  keywordSuggest: { url: '/api/answerly/v1/question/suggest' }
+  keywordSuggest: { url: '/api/answerly/v1/question/suggest' },
+  deleteQuestion: { url: '/api/answerly/v1/question', method: 'DELETE' },
+  correctQuestion: { url: '/api/answerly/v1/question', method: 'PUT' },
+  deleteComment: { url: '/api/answerly/v1/comment', method: 'DELETE' },
+  correctComment: { url: '/api/answerly/v1/comment', method: 'PUT' }
 }

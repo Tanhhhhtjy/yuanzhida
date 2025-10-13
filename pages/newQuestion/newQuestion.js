@@ -5,13 +5,16 @@ Page({
       { 'type': 'text', 'key': 'title', 'title': '标题' },
       { type: 'subject' },
       { type: 'text', key: 'content', title: '内容', multiLine: true },
-      { type: 'images', key: 'images' }],
+      { type: 'images', key: 'images', value: [] }],
     outputItems: {}
+  },
+  onLoad: function () {
+    this.selectComponent('#input-group').updateData(this.data.inputItems)
   },
   onInput: function (e) {
     this.setData({ 'outputItems': e.detail })
   },
-  onClear:function () {
+  onClear: function () {
     this.selectComponent('#input-group').clear()
   },
   onSubmit: function () {

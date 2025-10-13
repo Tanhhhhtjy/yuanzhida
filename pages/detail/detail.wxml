@@ -2,13 +2,19 @@
   <view class="question">
     <view class="title">{{question.title}}</view>
     <the-user-and-time id="user-and-time"></the-user-and-time>
-    <the-question-info id="question-info"></the-question-info>
+    <the-question-info bind:correntQuestion="onCorrentQuestion" id="question-info"></the-question-info>
     <view class="subject">{{question.subject_name}}</view>
     <view class="content">{{question.content}}</view>
     <the-images-preview id="images-preview"></the-images-preview>
   </view>
-  <the-comments id="comments"></the-comments>
+  <the-comments bind:correctComment="onCorrectComment" bind:update="onUpdate" id="comments"></the-comments>
   <the-pagination id="pagination" bind:redirect="onCommmentRedirect"></the-pagination>
   <the-input-group id="input-group" inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
-  <the-button text="提交解答" bind:the_tap="submit_answer"></the-button>
+  <block wx:if="{{isCorrect}}">
+    <the-button text="提交修改" bind:the_tap="submitCorrect"></the-button>
+    <the-button text="取消修改" bind:the_tap="cancelCorrect"></the-button>
+  </block>
+  <block wx:else>
+    <the-button text="提交解答" bind:the_tap="submit_answer"></the-button>
+  </block>
 </scroll-view>

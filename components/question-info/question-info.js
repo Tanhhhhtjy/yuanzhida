@@ -11,11 +11,29 @@ Component({
     likeStatus: '未登录',
     isOwn: false,
     username: '',
+    categoryId: 0
   },
   methods: {
     updateData: function (d) {
       this.setData(d)
       this.setData({ isOwn: data.isOwn(this.data.username) })
+    },
+    deleteQuestion: function () {
+      api.deleteQuestion(this.data.questionId).then(() => {
+        wx.showToast({
+          title: '删除成功',
+        })
+        setTimeout(() => {
+          wx.reLaunch({
+            url: '/pages/questions/questions?categoryId=' + this.data.categoryId
+          })
+        }, 1500);
+      }).catch(err => {
+        wx.showToast({
+          title: err,
+          icon: 'error'
+        })
+      })
     },
     flagSolved: function () {
       api.flagSolved(this.data.questionId, !this.data.solvedFlag).then(() => {
@@ -56,6 +74,9 @@ Component({
           icon: 'error'
         })
       })
+    },
+    correntQuestion: function () {
+      this.triggerEvent('correntQuestion')
     }
   }
 })

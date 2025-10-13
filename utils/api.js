@@ -52,18 +52,29 @@ function _uploadImagePromise(filePaths, index, outputList) {
     if (filePaths.length == 0) {
       resolve([])
     }
-    oss_upload(filePaths[index])
-      .then(res => {
-        outputList = outputList.concat(res)
-        if (index + 1 < filePaths.length) {
-          _uploadImagePromise(filePaths, index + 1, outputList)
-            .then(resolve)
-            .catch(reject)
-        } else {
-          resolve(outputList)
-        }
-      })
-      .catch(reject)
+    if (!filePaths[index].startsWith('http')) {
+      outputList = outputList.concat(filePaths[index])
+      if (index + 1 < filePaths.length) {
+        _uploadImagePromise(filePaths, index + 1, outputList)
+          .then(resolve)
+          .catch(reject)
+      } else {
+        resolve(outputList)
+      }
+    } else {
+      oss_upload(filePaths[index])
+        .then(res => {
+          outputList = outputList.concat(res)
+          if (index + 1 < filePaths.length) {
+            _uploadImagePromise(filePaths, index + 1, outputList)
+              .then(resolve)
+              .catch(reject)
+          } else {
+            resolve(outputList)
+          }
+        })
+        .catch(reject)
+    }
   })
 }
 export function oss_upload(filePath) {
@@ -148,4 +159,18 @@ export function flagUseful(id) {
 }
 export function keywordSuggest(s) {
   return request({ relativeUrl: api.keywordSuggest.url, params: { keyword: s } })
+}
+export function deleteQuestion(id) {
+  return request({ relativeUrl: api.deleteQuestion.url, method: api.deleteQuestion.method, header: getHeader(), params: { id: id } })
+}
+export function deleteComment(id) {
+  return request({ relativeUrl: api.deleteComment.url, method: api.deleteComment.method, header: getHeader(), params: { id: id } })
+}
+export function correctComment(data) {
+  return uploadImages(data['images'])
+    .then(res => {
+      let newImages = res.join(',')
+      data['images'] = newImages
+      return request({ relativeUrl: api.correctComment.url, method: api.correctComment.method, header: getHeader(), data: data })
+    })
 }

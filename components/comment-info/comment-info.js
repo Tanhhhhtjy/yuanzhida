@@ -11,6 +11,22 @@ Component({
     username: ''
   },
   methods: {
+    correntComment: function () {
+      this.triggerEvent('correntComment')
+    },
+    deleteComment: function () {
+      api.deleteComment(this.data.commentId).then(() => {
+        wx.showToast({
+          title: '删除成功',
+        })
+        this.triggerEvent('update')
+      }).catch(err => {
+        wx.showToast({
+          title: err,
+          icon: 'error'
+        })
+      })
+    },
     updateData: function (d) {
       this.setData(d)
       this.setData({ isOwn: data.isOwn(this.data.username) })

@@ -7,11 +7,13 @@ Page({
     question: {},
     questionId: 0,
     CommentPageCurrent: 1,
-    'inputItems': [
-      { type: 'text', key: 'content', title: '内容', multiLine: true },
-      { type: 'images', key: 'images' }
+    inputItems: [
+      { type: 'text', key: 'content', title: '内容', multiLine: true, value: '' },
+      { type: 'images', key: 'images', value: [] }
     ],
-    'outputItems': {},
+    outputItems: {},
+    isCorrect: false,
+    correctId: 0
   },
 
   onLoad(options) {
@@ -22,6 +24,13 @@ Page({
       this.updateImagesPreview()
     })
     this.updateComments()
+    this.selectComponent('#input-group').updateData(this.data.inputItems)
+  },
+  cancelCorrect: function () {
+    this.setData({ isCorrect: false })
+  },
+  onUpdate: function () {
+    this.updateComments()
   },
   updateImagesPreview: function () {
     this.selectComponent('#images-preview').updateData({ images: this.data.question.images })
@@ -30,9 +39,9 @@ Page({
     this.selectComponent('#user-and-time').updateData({ username: this.data.question.username, time: this.data.question.createTime })
   },
   updateQuestionInfo: function () {
-    const { solvedFlag, viewCount, commentCount, username, likeCount, userId, likeStatus } = this.data.question
+    const { solvedFlag, viewCount, categoryId, commentCount, username, likeCount, userId, likeStatus } = this.data.question
     this.selectComponent('#question-info').updateData({
-      solvedFlag: solvedFlag, viewCount: viewCount, commentCount: commentCount, likeCount: likeCount, entityUserId: userId, username: username, questionId: this.data.questionId, likeStatus: likeStatus
+      solvedFlag: solvedFlag, viewCount: viewCount, commentCount: commentCount, likeCount: likeCount, entityUserId: userId, categoryId: categoryId, username: username, questionId: this.data.questionId, likeStatus: likeStatus
     })
   },
   updateQuestion: function () {
@@ -78,6 +87,7 @@ Page({
         title: '提交成功',
       })
       this.selectComponent('#input-group').clear()
+      this.updateComments()
     }).catch(err => {
       wx.hideLoading()
       wx.showToast({
@@ -89,5 +99,42 @@ Page({
   onCommmentRedirect: function (e) {
     this.setData({ CommentPageCurrent: e.detail })
     this.updateComments()
+  },
+  onCorrectComment: function (e) {
+    const { id, content, images } = e.detail
+    const inputItems = this.data.inputItems
+    inputItems[0].value = content
+    inputItems[1].value = images
+    this.setData({ isCorrect: true, inputItems: inputItems, correctId: id })
+    this.selectComponent('#input-group').updateData(this.data.inputItems)
+  },
+  submitCorrect: function () {
+    wx.showLoading({
+      title: '正在提交',
+    })
+    api.correctComment({ id: this.data.correctId, content: this.data.outputItems.content, images: this.data.outputItems.images }).then(() => {
+      wx.hideLoading()
+      wx.showToast({
+        title: '修改成功',
+      })
+      setTimeout(() => {
+        this.updateComments()
+        this.selectComponent('#input-group').clear()
+      }, 1500);
+    }).catch(err => {
+      wx.hideLoading()
+      wx.showToast({
+        title: err,
+        icon: 'error'
+      })
+    })
+  },
+  onCorrentQuestion: function () {
+    wx.setStorageSync('correctQuestion', this.data.question)
+    setTimeout(() => {
+      wx.reLaunch({
+        url: '/pages/newQuestion/newQuestion',
+      })
+    }, 1500);
   }
 })

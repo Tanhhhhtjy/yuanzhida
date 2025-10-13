@@ -1,7 +1,11 @@
 <view class="container">
   <view class="left">
     <image src="{{solvedFlag?'/assets/image/done.svg':'/assets/image/undone.svg'}}" class="icon" />
-    <the-button size="tiny" wx:if="{{isOwn}}" bind:the_tap="flagSolved" text="标记解决"></the-button>
+    <block wx:if="{{isOwn}}">
+      <the-button size="tiny" bind:the_tap="flagSolved" text="{{solvedFlag?'取消标记':'标记解决'}}"></the-button>
+      <the-button size="tiny" size="tiny" bind:the_tap="correntQuestion" text="修改"></the-button>
+      <the-button size="tiny" size="tiny" bind:the_tap="deleteQuestion" text="删除"></the-button>
+    </block>
   </view>
   <view class="right">
     <view class="item">

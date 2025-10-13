@@ -1,27 +1,21 @@
 Component({
 
-  properties: {
-    'initImages': { type: Array, value: [] }
-  },
   data: {
-    'images': [],
+    value: [],
     'canAddImage': true,
     'addImageText': '添加图片'
   },
-  lifetimes: {
-    attached: function () {
-      this.setData({ 'images': this.data.initImages })
-      this.trigger()
-    }
-  },
   methods: {
+    updateData: function (d) {
+      this.setData({ value: d.value })
+    },
     addImage: function () {
       wx.chooseMedia({
-        count: 9 - this.data.images.length,
+        count: 9 - this.data.value.length,
         mediaType: 'image',
         success: (res) => {
-          this.setData({ 'images': this.data.images.concat(res.tempFiles.map(i => i.tempFilePath)) })
-          if (this.data.images.length == 9) {
+          this.setData({ value: this.data.value.concat(res.tempFiles.map(i => i.tempFilePath)) })
+          if (this.data.value.length == 9) {
             this.setData({ 'canAddImage': false, 'addImageText': '最多9张图片' })
             return
           }
@@ -30,12 +24,12 @@ Component({
       })
     },
     clear: function () {
-      this.setData({ images: [] })
+      this.setData({ value: [] })
     },
     previewImage: function (e) {
       wx.previewImage({
-        urls: this.data.images,
-        current: this.data.images[e.currentTarget.dataset['index']]
+        urls: this.data.value,
+        current: this.data.value[e.currentTarget.dataset['index']]
       })
     },
     delImage: function (e) {
@@ -44,16 +38,16 @@ Component({
         content: '是否删除该图片',
         complete: (res) => {
           if (res.confirm) {
-            let images = this.data.images
-            images.splice(e.currentTarget.dataset['index'], 1)
-            this.setData({ 'images': images })
+            let value = this.data.value
+            value.splice(e.currentTarget.dataset['index'], 1)
+            this.setData({ 'value': value })
             this.trigger()
           }
         }
       })
     },
     trigger: function () {
-      this.triggerEvent('input', { key: 'images', value: this.data.images })
+      this.triggerEvent('input', { key: 'images', value: this.data.value })
     }
   }
 })
