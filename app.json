@@ -11,7 +11,8 @@
     "components-demo/images-input/images-input",
     "components-demo/input-group/input-group",
     "components-demo/captcha/captcha",
-    "components-demo/pagination/pagination"
+    "components-demo/pagination/pagination",
+    "components-demo/questions/questions"
   ],
   "tabBar": {
     "color": "0x000000",

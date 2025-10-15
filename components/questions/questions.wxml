@@ -1,0 +1,12 @@
+<view class="container">
+  <view wx:for="{{questions}}" class="question-item" wx:key="id">
+    <view class="title">
+      <navigator url="{{'/pages/detail/detail?id='+item.id}}">
+        {{item.title}}
+      </navigator>
+    </view>
+    <the-user-and-time class="user-and-time"></the-user-and-time>
+    <view class="content">{{item.content}}</view>
+    <the-question-info class="question-info"></the-question-info>
+  </view>
+</view>

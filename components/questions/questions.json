@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "the-user-and-time": "/components/user-and-time/user-and-time",
+    "the-question-info": "/components/question-info/question-info"
+  }
+}

@@ -3,6 +3,7 @@
     "the-pagination": "/components/pagination/pagination",
     "the-user-and-time": "/components/user-and-time/user-and-time",
     "the-question-info": "/components/question-info/question-info",
-    "the-keyword-input": "/components/keyword-input/keyword-input"
+    "the-keyword-input": "/components/keyword-input/keyword-input",
+    "the-questions": "/components/questions/questions"
   }
 }

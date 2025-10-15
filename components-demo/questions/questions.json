@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "the-questions": "/components/questions/questions",
+    "the-pagination": "/components/pagination/pagination"
+  }
+}

@@ -1,0 +1,4 @@
+<scroll-view scroll-y="true" id="container">
+    <the-questions id="questions"></the-questions>
+    <the-pagination id="pagination" bind:redirect="onRedirect"></the-pagination>
+  </scroll-view>

@@ -5,12 +5,9 @@
   box-sizing: border-box;
 }
 
-.image-box{
+.image-box {
   display: flex;
   flex-direction: row;
-}
-
-.image-box {
   justify-content: center;
   margin: 30rpx auto;
 }
