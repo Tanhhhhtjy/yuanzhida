@@ -51,7 +51,6 @@ function _uploadImagePromise(filePaths, index, outputList) {
     // https://oss.com/image.png
     if (filePath.startsWith('https')) {
       filePath = filePath.substring(OSS_HOST.length)
-      return
     }
     // http://tmp wxfile://tmp__123.png
     if (filePath.startsWith('http') || filePath.startsWith('wxfile')) {
@@ -159,6 +158,7 @@ export function correctComment(data) {
   })
 }
 export function correctQuestion(d) {
+  console.log(d);
   return ImagesMiddleware(d).then(res => {
     const { url, method } = api.correctQuestion
     return request({ url, method, header: getHeader(), data: res })
