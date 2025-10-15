@@ -16,10 +16,12 @@ Page({
     questions: [],
   },
   onLoad(options) {
+    // the normal questions page
     if (options.categoryId) {
       const categoryId = options.categoryId
       this.setData({ categoryId, subject_image: data.getSubjectImage(categoryId) })
     } else {
+      // the personal footprint
       this.setData({ pageType: options.pageType })
       const text = ['游览记录', '我的题目', '收藏列表'][options.pageType-1]
       this.setData({ title: text })
@@ -45,7 +47,7 @@ Page({
       apiPromise = api.questions({ categoryId: this.data.categoryId, size: 10, current: this.data.current, keyword: this.data.keyword, solvedFlag: this.data.solvedFlag })
     }
     apiPromise.then(res => {
-      this.selectComponent('#questions').initData({ questions: util.parseQuestionItem(res.records) })
+      this.selectComponent('#questions').initData({ questions: util.parseQuestions(res.records) })
       this.selectComponent('#pagination').initData({ total: parseInt((res.total + res.size - 1) / res.size), current: this.data.current })
     })
   },

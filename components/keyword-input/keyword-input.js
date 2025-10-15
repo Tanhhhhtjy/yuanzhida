@@ -26,7 +26,7 @@ Component({
       })
     },
     chooseSuggestion: function (e) {
-      this.selectComponent('#input').updateData(e.currentTarget.dataset.text)
+      this.selectComponent('#input').initData({ value: e.currentTarget.dataset.text })
     }
   }
 })

@@ -12,7 +12,7 @@ Component({
     updateUserAndTime: function () {
       const els = this.selectAllComponents('.user-and-time')
       for (let i in els) {
-        els[i].initData({ username: this.data.questions[i].username || '用户名', time: util.parseTime(this.data.questions[i].createTime) })
+        els[i].initData({ username: this.data.questions[i].username || '用户名', time: this.data.questions[i].createTime })
       }
     },
     updateQuestioniInfo: function () {

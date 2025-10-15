@@ -8,10 +8,11 @@ Page({
     questionId: 0,
     CommentPageCurrent: 1,
     outputItems: {},
+    // if correct comment
     isCorrect: false,
     correctCommentId: 0,
     inputItems: [
-      { type: 'text', key: 'content', label: '内容', multiLine: true, value: '' },
+      { type: 'text', key: 'content', label: '内容', multiLine: true },
       { type: 'images' }
     ]
   },
@@ -46,17 +47,15 @@ Page({
     })
   },
   updateQuestion: function () {
-    return api.questionDetail(this.data.questionId)
-      .then(res => {
-        res.images = util.parseImages(res.images)
-        res.createTime = util.parseTime(res.createTime)
-        res.subject_name = data.getSubjectName(res.categoryId)
-        this.setData({ question: res })
-      }).catch(interact.errorToast)
+    return api.questionDetail(this.data.questionId).then(res => {
+      res = util.modifyItem(res)
+      res.subject_name = data.getSubjectName(res.categoryId)
+      this.setData({ question: res })
+    }).catch(interact.errorToast)
   },
   updateComments: function () {
     api.comments({ id: this.data.questionId, size: 10, current: this.data.CommentPageCurrent }).then(res => {
-      this.selectComponent('#comments').initData({ comments: util.add_oss_prefix_comments(res.records), entityUserId: this.data.question.userId, questionUsername: this.data.question.username })
+      this.selectComponent('#comments').initData({ comments: util.modifyItemList(res.records), entityUserId: this.data.question.userId, questionUsername: this.data.question.username })
       this.selectComponent('#pagination').initData({ total: parseInt((res.total + res.size - 1) / res.size), current: this.data.CommentPageCurrent })
     }).catch(interact.errorToast)
   },
@@ -68,20 +67,13 @@ Page({
     outputItems['questionId'] = this.data.questionId
     outputItems['topCommentId'] = 0
     outputItems['parentCommentId'] = 0
-    wx.showLoading({
-      title: '正在提交',
-    })
+    wx.showLoading({ title: '正在提交', })
     api.newAnswer(outputItems).then(() => {
       wx.hideLoading()
-      wx.showToast({
-        title: '提交成功',
-      })
+      wx.showToast({ title: '提交成功', })
       this.selectComponent('#input-group').clear()
       this.updateComments()
-    }).catch(err => {
-      wx.hideLoading()
-      wx.showToast(interact.errorToast)
-    })
+    }).catch(interact.errorToast)
   },
   onCommmentRedirect: function (e) {
     this.setData({ CommentPageCurrent: e.detail })

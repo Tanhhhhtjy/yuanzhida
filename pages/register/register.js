@@ -1,8 +1,8 @@
 const api = require('../../utils/api')
+const interact = require('../../utils/interact')
 Page({
   data: {
-    outputItems: {},
-    captchaText: "获取邮箱验证码"
+    outputItems: {}
   },
   onLoad: function () {
     this.selectComponent('#input-group').initData({
@@ -19,39 +19,17 @@ Page({
       title: '正在发送验证码',
     })
     api.register_code({ mail: this.data.outputItems.mail }).then(() => {
-      wx.hideLoading()
-      wx.showToast({
-        title: '验证码发送成功',
-      })
-    }).catch(err => {
-      wx.hideLoading()
-      wx.showToast({
-        title: err,
-        icon: 'error'
-      })
-    })
+      wx.showToast({ title: '验证码发送成功', })
+    }).catch(interact.errorToast)
   },
   submit: function () {
-    wx.showLoading({
-      title: '正在注册',
-    })
-    api.register(this.data.outputItems).then(res => {
-      wx.hideLoading()
-      wx.showToast({
-        title: '注册成功，请登录',
-      })
+    wx.showLoading({ title: '正在注册', })
+    api.register(this.data.outputItems).then(() => {
+      wx.showToast({ title: '注册成功，请登录', })
       setTimeout(() => {
-        wx.reLaunch({
-          url: '/pages/me/me',
-        })
+        wx.reLaunch({ url: '/pages/me/me', })
       }, 1500);
-    }).catch(err => {
-      wx.hideLoading()
-      wx.showToast({
-        title: err,
-        icon: 'error'
-      })
-    })
+    }).catch(interact.errorToast)
   },
   onInput: function (e) {
     this.setData({ 'outputItems': e.detail })

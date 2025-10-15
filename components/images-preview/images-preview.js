@@ -5,7 +5,7 @@ Component({
   },
   methods: {
     initData: function (d) {
-      d.images = util.add_oss_prefix_images(d.images)
+      // d: { images: ["https://oss.com/..." ,"http://tmp/...","wxfile://tmp"]
       this.setData(d)
     },
     previewImage: function (e) {

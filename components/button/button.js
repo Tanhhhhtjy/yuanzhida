@@ -2,7 +2,8 @@ Component({
   properties: {
     'text': { type: String, value: '按钮' },
     'disabled': { type: Boolean, value: false },
-    'size': { type: String, value: 'normal' }
+    // normal big small tiny
+    'size': { type: String, value: 'big' }
   },
   data: {
 

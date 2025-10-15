@@ -21,7 +21,7 @@ Page({
       inputItems[2].value = cacheQ.content
       inputItems[3].value = cacheQ.images
       this.setData({ inputItems: inputItems, isCorrect: true, correctedQuestionId: cacheQ.id })
-      // wx.removeStorageSync('cachedQuestion')
+      wx.removeStorageSync('cachedQuestion')
     }
     this.selectComponent('#input-group').initData({ inputItems: this.data.inputItems })
   },
@@ -54,7 +54,7 @@ Page({
         wx.showToast({ title: '新建问题成功', })
         setTimeout(() => {
           wx.reLaunch({ url: '/pages/questions/questions?categoryId=' + this.data.outputItems['categoryId'], })
-        }, 1000);
+        }, 1500);
       }).catch(interact.errorToast)
   }
 })

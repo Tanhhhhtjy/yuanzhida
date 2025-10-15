@@ -18,7 +18,7 @@ Component({
     updateUserAndTime: function () {
       const els = this.selectAllComponents('.user-and-time')
       for (let i in els) {
-        els[i].initData({ username: this.data.comments[i].username, time: util.parseTime(this.data.comments[i].createTime) })
+        els[i].initData({ username: this.data.comments[i].username, time: this.data.comments[i].createTime })
       }
     },
     onCorrentComment: function (e) {

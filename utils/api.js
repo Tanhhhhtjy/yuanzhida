@@ -53,7 +53,7 @@ function _uploadImagePromise(filePaths, index, outputList) {
       filePath = filePath.substring(OSS_HOST.length)
       return
     }
-    // http://tmp
+    // http://tmp wxfile://tmp__123.png
     if (filePath.startsWith('http') || filePath.startsWith('wxfile')) {
       oss_upload(filePath).then(res => {
         outputList = outputList.concat(res)

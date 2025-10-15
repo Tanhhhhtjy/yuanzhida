@@ -8,9 +8,9 @@ Component({
   },
   methods: {
     initData: function (d) {
-      // d = { value: ["2025/04/04/123.png","http://tmp","https://oss.com"] }
+      // d = { value: ["2025/04/04/123.png","http://tmp","wxfile://tmp"] }
       // add oss prefix if need
-      d.value = util.add_oss_prefix_images(d.value || [])
+      d.value = util.toVisibleImages(d.value || [])
       this.setData(d)
       // after init data,need to trigger
       this.trigger()

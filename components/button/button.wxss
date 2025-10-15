@@ -1,19 +1,28 @@
 .button {
   background-color: #B4D4F9;
-  padding: 20rpx 40rpx;
   text-align: center;
-  font-size: 90rpx;
   border: blue 1px solid;
+  border-radius: 10px;
+}
+
+.big {
+  font-size: 45px;
+  padding: 10px 15px;
+}
+
+.normal{
+  font-size: 30px;
+  padding: 8px;
 }
 
 .small {
-  font-size: 40rpx;
-  padding: 10rpx;
+  font-size: 20px;
+  padding: 6px;
 }
 
 .tiny {
-  font-size: 30rpx;
-  padding: 5rpx;
+  font-size: 8px;
+  padding: 3px;
 }
 
 .disabled {
