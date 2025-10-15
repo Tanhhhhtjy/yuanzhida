@@ -1,4 +1,5 @@
 const util = require('../../utils/util')
+const interact = require('../../utils/interact')
 Component({
   data: {
     current: 1,
@@ -24,10 +25,10 @@ Component({
       } else {
         indexList = [1, 2, util.GenerateNumList(current - 1, total)]
       }
-      this.setData({ 'indexList': indexList })
+      this.setData({ indexList })
     },
     onInput: function (e) {
-      this.setData({ 'outputItems': e.detail })
+      this.setData({ outputItems: e.detail })
     },
     submitRedirect: function (e) {
       if (e.currentTarget.dataset['page']) {
@@ -39,10 +40,7 @@ Component({
         this.triggerEvent('redirect', page)
         this.selectComponent('#input-group').clear()
       } else {
-        wx.showToast({
-          title: '无法跳转',
-          icon: 'error'
-        })
+        interact.errorToast('无法跳转')
       }
     }
   }

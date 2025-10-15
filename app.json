@@ -10,7 +10,8 @@
     "components-demo/subjects-selector/subjects-selector",
     "components-demo/images-input/images-input",
     "components-demo/input-group/input-group",
-    "components-demo/captcha/captcha"
+    "components-demo/captcha/captcha",
+    "components-demo/pagination/pagination"
   ],
   "tabBar": {
     "color": "0x000000",

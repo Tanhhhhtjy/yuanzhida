@@ -1,6 +1,7 @@
 const api = require('../../utils/api')
 const data = require('../../utils/data')
 const util = require('../../utils/util')
+const interact = require('../../utils/interact')
 Page({
   data: {
     question: {},
@@ -21,11 +22,9 @@ Page({
       this.updateUserAndTime()
       this.updateQuestionInfo()
       this.updateImagesPreview()
+      this.updateComments()
     })
-    this.updateComments()
-    this.selectComponent('#input-group').initData({
-
-    })
+    this.selectComponent('#input-group').initData({ inputItems: this.data.inputItems })
   },
   cancelCorrect: function () {
     this.setData({ isCorrect: false })
@@ -53,22 +52,13 @@ Page({
         res.createTime = util.parseTime(res.createTime)
         res.subject_name = data.getSubjectName(res.categoryId)
         this.setData({ question: res })
-      }).catch(err => {
-        wx.showToast({
-          title: err,
-          icon: 'error'
-        })
-      })
+      }).catch(interact.errorToast)
   },
   updateComments: function () {
     api.comments({ id: this.data.questionId, size: 10, current: this.data.CommentPageCurrent }).then(res => {
-      this.selectComponent('#comments').initData({ comments: util.add_oss_prefix_comments(res.records), entityUserId: this.data.question.userId })
+      this.selectComponent('#comments').initData({ comments: util.add_oss_prefix_comments(res.records), entityUserId: this.data.question.userId, questionUsername: this.data.question.username })
       this.selectComponent('#pagination').initData({ total: parseInt((res.total + res.size - 1) / res.size), current: this.data.CommentPageCurrent })
-    }).catch(err => {
-      wx.showToast({
-        title: err,
-      })
-    })
+    }).catch(interact.errorToast)
   },
   onInput: function (e) {
     this.setData({ outputItems: e.detail })
@@ -90,10 +80,7 @@ Page({
       this.updateComments()
     }).catch(err => {
       wx.hideLoading()
-      wx.showToast({
-        title: err,
-        icon: 'error'
-      })
+      wx.showToast(interact.errorToast)
     })
   },
   onCommmentRedirect: function (e) {
@@ -106,7 +93,7 @@ Page({
     inputItems[0].value = content
     inputItems[1].value = images
     this.setData({ isCorrect: true, inputItems: inputItems, correctCommentId: id })
-    this.selectComponent('#input-group').initData(this.data.inputItems)
+    this.selectComponent('#input-group').initData({ inputItems: this.data.inputItems })
   },
   submitCorrect: function () {
     wx.showLoading({
@@ -114,28 +101,21 @@ Page({
     })
     api.correctComment({ id: this.data.correctCommentId, content: this.data.outputItems.content, images: this.data.outputItems.images }).then(() => {
       wx.hideLoading()
-      wx.showToast({
-        title: '修改成功',
-      })
+      wx.showToast({ title: '修改成功', })
       setTimeout(() => {
         this.updateComments()
         this.selectComponent('#input-group').clear()
       }, 1500);
     }).catch(err => {
       wx.hideLoading()
-      wx.showToast({
-        title: err,
-        icon: 'error'
-      })
+      interact.errorToast(err)
     })
   },
   onCorrentQuestion: function () {
     const { title, content, categoryId, images, id } = this.data.question
     wx.setStorageSync('cachedQuestion', { title, content, categoryId, id, images })
     setTimeout(() => {
-      wx.reLaunch({
-        url: '/pages/newQuestion/newQuestion',
-      })
+      wx.reLaunch({ url: '/pages/newQuestion/newQuestion', })
     }, 1500);
   }
 })

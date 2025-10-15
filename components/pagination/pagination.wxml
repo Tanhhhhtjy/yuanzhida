@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container" wx:if="{{total}}">
   <block wx:for="{{indexList}}" wx:key="*this">
     <view wx:if="{{item==current}}" class="{{item==current?'current':''}}">
       {{item}}

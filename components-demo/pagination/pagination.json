@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "the-pagination": "/components/pagination/pagination"
+  }
+}

@@ -1,5 +1,6 @@
 const api = require('../../utils/api')
 const data = require('../../utils/data')
+const interact = require('../../utils/interact')
 Component({
   data: {
     likeStatus: '',
@@ -7,29 +8,24 @@ Component({
     entityUserId: 0,
     commentId: 0,
     useful: 0,
-    isOwn: false,
-    username: ''
+    isQuestionOwn: false,
+    isCommentOwn: false
   },
   methods: {
     correntComment: function () {
       this.triggerEvent('correntComment')
     },
     deleteComment: function () {
-      api.deleteComment(this.data.commentId).then(() => {
-        wx.showToast({
-          title: '删除成功',
-        })
-        this.triggerEvent('update')
-      }).catch(err => {
-        wx.showToast({
-          title: err,
-          icon: 'error'
-        })
+      interact.warnModal('确认删除', () => {
+        api.deleteComment(this.data.commentId).then(() => {
+          wx.showToast({ title: '删除成功' })
+          this.triggerEvent('update')
+        }).catch(interact.errorToast)
       })
     },
     initData: function (d) {
       this.setData(d)
-      this.setData({ isOwn: data.isOwn(this.data.username) })
+      this.setData({ isCommentOwn: data.isOwn(this.data.username), isQuestionOwn: data.isOwn(d.questionUsername) })
     },
     flagUseful: function () {
       api.flagUseful(this.data.commentId).then(() => {
@@ -39,19 +35,11 @@ Component({
           title: text,
         })
         this.setData({ useful: !this.data.useful })
-      }).catch(err => {
-        wx.showToast({
-          title: err,
-          icon: 'error'
-        })
-      })
+      }).catch(interact.errorToast)
     },
     likeComment: function () {
       if (this.data.likeStatus == '未登录') {
-        wx.showToast({
-          title: '未登录',
-          icon: 'error'
-        })
+        interact.errorToast('未登录')
         return
       }
       api.likeComment(this.data.commentId, this.data.entityUserId).then(res => {
@@ -66,12 +54,7 @@ Component({
           })
           this.setData({ likeStatus: '未点赞', likeCount: this.data.likeCount - 1 })
         }
-      }).catch(err => {
-        wx.showToast({
-          title: err,
-          icon: 'error'
-        })
-      })
+      }).catch(interact.errorToast)
     }
   }
 })

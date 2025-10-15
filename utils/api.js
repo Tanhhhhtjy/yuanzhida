@@ -1,6 +1,6 @@
 const util = require('./util')
 const auth = require('./auth')
-const { api, baseUrl } = require('./constant')
+const { api, baseUrl, OSS_HOST } = require('./constant')
 const validate = require('./validate')
 function getHeader() {
   return { 'username': auth.getUsername(), 'token': auth.getToken() }
@@ -37,37 +37,33 @@ export function questions(params) {
 export function subjects() {
   return request({ relativeUrl: api['subjects'].url })
 }
-export function uploadImages(filePaths) {
-  return _uploadImagePromise(filePaths, 0, [])
+function ImagesMiddleware(item) {
+  return _uploadImagePromise(item.images, 0, []).then(res => {
+    let newImages = res.join(',')
+    item.images = newImages
+    return item
+  })
 }
 function _uploadImagePromise(filePaths, index, outputList) {
   return new Promise((resolve, reject) => {
-    if (filePaths.length == 0) {
-      resolve([])
+    if (filePaths.length == 0) resolve([])
+    let filePath = filePaths[index]
+    // https://oss.com/image.png
+    if (filePath.startsWith('https')) filePath = filePath.substring(OSS_HOST.length)
+    // http://tmp
+    if (filePath.startsWith('http')) {
+      oss_upload(filePath).then(res => {
+        outputList = outputList.concat(res)
+        if (index + 1 < filePaths.length) {
+          _uploadImagePromise(filePaths, index + 1, outputList).then(resolve).catch(reject)
+        } else resolve(outputList)
+      }).catch(reject)
     }
-    if (!filePaths[index].startsWith('http')) {
-      outputList = outputList.concat(filePaths[index])
-      if (index + 1 < filePaths.length) {
-        _uploadImagePromise(filePaths, index + 1, outputList)
-          .then(resolve)
-          .catch(reject)
-      } else {
-        resolve(outputList)
-      }
-    } else {
-      oss_upload(filePaths[index])
-        .then(res => {
-          outputList = outputList.concat(res)
-          if (index + 1 < filePaths.length) {
-            _uploadImagePromise(filePaths, index + 1, outputList)
-              .then(resolve)
-              .catch(reject)
-          } else {
-            resolve(outputList)
-          }
-        })
-        .catch(reject)
-    }
+    // 2025/12/12/image.png
+    outputList = outputList.concat(filePath)
+    if (index + 1 < filePaths.length) {
+      _uploadImagePromise(filePaths, index + 1, outputList).then(resolve).catch(reject)
+    } else resolve(outputList)
   })
 }
 export function oss_upload(filePath) {
@@ -98,20 +94,14 @@ export function comments(params) {
 export function newQuestion(data) {
   let validateResult = validate.newQuestion(data)
   if (validateResult) return validateResult
-  return uploadImages(data['images'])
-    .then(res => {
-      let newImages = res.join(',')
-      data['images'] = newImages
-      return request({ relativeUrl: api['newQuestion'].url, method: api['newQuestion'].method, header: getHeader(), data: data })
-    })
+  return ImagesMiddleware(data).then(res => {
+    return request({ relativeUrl: api['newQuestion'].url, method: api['newQuestion'].method, header: getHeader(), data: res })
+  })
 }
-export function newAnswer(data) {
-  return uploadImages(data['images'])
-    .then(res => {
-      let newImages = res.join(',')
-      data['images'] = newImages
-      return request({ relativeUrl: api['newAnswer'].url, method: api['newAnswer'].method, header: getHeader(), data: data })
-    })
+export function newAnswer(d) {
+  return ImagesMiddleware(d).then(res => {
+    request({ relativeUrl: api['newAnswer'].url, method: api['newAnswer'].method, header: getHeader(), data: res })
+  })
 }
 function request({ method = 'GET', relativeUrl, params = {}, header = null, data = null }) {
   let url = baseUrl + relativeUrl
@@ -160,18 +150,12 @@ export function deleteComment(id) {
   return request({ relativeUrl: api.deleteComment.url, method: api.deleteComment.method, header: getHeader(), params: { id: id } })
 }
 export function correctComment(data) {
-  return uploadImages(data['images'])
-    .then(res => {
-      let newImages = res.join(',')
-      data['images'] = newImages
-      return request({ relativeUrl: api.correctComment.url, method: api.correctComment.method, header: getHeader(), data: data })
-    })
+  return ImagesMiddleware(data).then(res => {
+    return request({ relativeUrl: api.correctComment.url, method: api.correctComment.method, header: getHeader(), data: res })
+  })
 }
 export function correctQuestion(d) {
-  return uploadImages(d['images'])
-    .then(res => {
-      let newImages = res.join(',')
-      d['images'] = newImages
-      return request({ relativeUrl: api.correctQuestion.url, method: api.correctQuestion.method, header: getHeader(), data: d })
-    })
+  return ImagesMiddleware(d).then(res => {
+    return request({ relativeUrl: api.correctQuestion.url, method: api.correctQuestion.method, header: getHeader(), data: res })
+  })
 }

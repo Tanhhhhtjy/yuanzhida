@@ -24,11 +24,18 @@
     "miniprogram": {
       "list": [
         {
-          "name": "components-demo/captcha/captcha",
-          "pathName": "components-demo/captcha/captcha",
+          "name": "components-demo/pagination/pagination",
+          "pathName": "components-demo/pagination/pagination",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "components-demo/captcha/captcha",
+          "pathName": "components-demo/captcha/captcha",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/login/login",

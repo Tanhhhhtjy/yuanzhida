@@ -1,5 +1,6 @@
 const api = require('../../utils/api')
 const data = require('../../utils/data')
+const interact = require('../../utils/interact')
 Component({
   data: {
     solvedFlag: false,
@@ -19,64 +20,42 @@ Component({
       this.setData({ isOwn: data.isOwn(this.data.username) })
     },
     deleteQuestion: function () {
-      api.deleteQuestion(this.data.questionId).then(() => {
-        wx.showToast({
-          title: '删除成功',
-        })
-        setTimeout(() => {
-          wx.reLaunch({
-            url: '/pages/questions/questions?categoryId=' + this.data.categoryId
-          })
-        }, 1500);
-      }).catch(err => {
-        wx.showToast({
-          title: err,
-          icon: 'error'
-        })
+      interact.warnModal('删除题目', () => {
+        api.deleteQuestion(this.data.questionId).then(() => {
+          wx.showToast({ title: '删除成功' })
+          setTimeout(() => {
+            wx.reLaunch({ url: '/pages/questions/questions?categoryId=' + this.data.categoryId })
+          }, 1500);
+        }).catch(interact.errorToast)
       })
     },
     flagSolved: function () {
-      api.flagSolved(this.data.questionId, !this.data.solvedFlag).then(() => {
-        wx.showToast({
-          title: '标记已经解决',
-        })
-        this.setData({ solvedFlag: !this.data.solvedFlag })
-      }).catch(err => {
-        wx.showToast({
-          title: err,
-          icon: 'error'
-        })
+      interact.warnModal('标记解决', () => {
+        api.flagSolved(this.data.questionId, !this.data.solvedFlag).then(() => {
+          wx.showToast({ title: '标记已经解决', })
+          this.setData({ solvedFlag: !this.data.solvedFlag })
+        }).catch(interact.errorToast)
       })
     },
     likeQuestion: function () {
       if (this.data.likeStatus == '未登录') {
-        wx.showToast({
-          title: '未登录',
-          icon: 'error'
-        })
+        interact.errorToast('未登录')
         return
       }
       api.likeQuestion(this.data.questionId, this.data.entityUserId).then(() => {
         if (this.data.likeStatus == '未点赞') {
-          wx.showToast({
-            title: '点赞成功',
-          })
+          wx.showToast({ title: '点赞成功', })
           this.setData({ likeStatus: '已点赞', likeCount: this.data.likeCount + 1 })
         } else {
-          wx.showToast({
-            title: '取消点赞',
-          })
+          wx.showToast({ title: '取消点赞', })
           this.setData({ likeStatus: '未点赞', likeCount: this.data.likeCount - 1 })
         }
-      }).catch(err => {
-        wx.showToast({
-          title: err,
-          icon: 'error'
-        })
-      })
+      }).catch(interact.errorToast)
     },
     correntQuestion: function () {
-      this.triggerEvent('correntQuestion')
+      interact.warnModal('修改题目', () => {
+        this.triggerEvent('correntQuestion')
+      })
     }
   }
 })
