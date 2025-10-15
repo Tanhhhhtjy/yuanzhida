@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "the-images-input":"/components/images-input/images-input"
+  }
+}

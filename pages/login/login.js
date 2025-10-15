@@ -2,24 +2,27 @@ var api = require('../../utils/api.js')
 var auth = require('../../utils/auth.js')
 Page({
   data: {
-    inputItems: [
-      { type: 'text', key: 'username', title: '用户名' },
-      { type: 'text', key: 'password', title: '密码', password: true }],
     outputItems: {},
-    'code': '',
-    'cookie': '',
-    'captcha_show': false,
-    'toptipText': ''
+    captchaShow: false
   },
-  onSubmit: function () {
-    this.setData({ 'captcha_show': true })
+  onLoad: function () {
+    this.selectComponent('#input-group').initData({
+      inputItems: [
+        { type: 'text', key: 'username', label: '用户名' },
+        { type: 'text', key: 'password', label: '密码', password: true }]
+    })
+  },
+  showCaptcha: function () {
+    this.setData({ captchaShow: true })
   },
   onInput: function (e) {
-    this.setData({ 'outputItems': e.detail })
+    this.setData({ outputItems: e.detail })
   },
-  submit_login: function (e) {
-    api.login(this.data.outputItems['username'], this.data.outputItems['password'], e.detail.code, e.detail.cookie).then(res => {
-      auth.saveAuth(this.data.outputItems['username'], res)
+  onSubmitLogin: function (e) {
+    const { username, password } = this.data.outputItems
+    const { code, cookie } = e.detail
+    api.login({ username, password, code, cookie }).then(res => {
+      auth.saveAuth(username, res)
       wx.showToast({
         title: '登录成功',
       })
@@ -27,15 +30,15 @@ Page({
         wx.reLaunch({
           url: '/pages/subjects/subjects',
         })
-      }, 2000);
-    }).catch(e => {
-      wx.showModal({
-        title: '登录失败',
-        content: e
+      }, 1500);
+    }).catch(err => {
+      wx.showToast({
+        title: err,
+        icon: 'error'
       })
     })
   },
-  captcha_hide: function () {
-    this.setData({ 'captcha_show': false })
+  hideCaptcha: function () {
+    this.setData({ 'captchaShow': false })
   }
 })

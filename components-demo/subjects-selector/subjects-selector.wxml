@@ -1,0 +1,1 @@
+<the-subjects-selector bind:input="onInput" id="subjects-selector"></the-subjects-selector>

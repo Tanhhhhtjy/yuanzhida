@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "the-subjects-selector": "/components/subjects-selector/subjects-selector"
+  }
+}

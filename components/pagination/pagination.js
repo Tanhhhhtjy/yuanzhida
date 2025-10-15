@@ -9,7 +9,7 @@ Component({
     outputItems: {}
   },
   methods: {
-    updateData: function (d) {
+    initData: function (d) {
       this.setData(d)
       this.updateIndexList()
     },

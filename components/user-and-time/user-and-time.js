@@ -6,7 +6,7 @@ Component({
     time: ''
   },
   methods: {
-    updateData: function (d) {
+    initData: function (d) {
       this.setData(d)
     }
   }

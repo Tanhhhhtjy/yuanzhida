@@ -1,0 +1,1 @@
+<the-images-input bind:input="onInput" id="images-input"></the-images-input>

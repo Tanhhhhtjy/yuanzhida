@@ -1,6 +1,4 @@
 <view class="container">
   <view class="title">科目 </view>
-  <picker class="value" mode="selector" range="{{subjects}}" range-key="name" bindchange="onPickerChange">
-    {{subjects[id]['name']}}
-  </picker>
+  <picker class="value" mode="selector" range="{{subjects}}" range-key="name" bindchange="onPickerChange">{{selectedSubjectName}}</picker>
 </view>

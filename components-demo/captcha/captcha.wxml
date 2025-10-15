@@ -1,0 +1,1 @@
+<the-captcha bind:submit="onSubmit"></the-captcha>

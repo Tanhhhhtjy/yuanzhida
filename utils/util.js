@@ -1,12 +1,12 @@
 const { OSS_HOST } = require('./constant')
 export function add_oss_prefix(relativeUrl) {
-  return `${OSS_HOST}${relativeUrl}`
+  return relativeUrl.startsWith('http') ? relativeUrl : `${OSS_HOST}${relativeUrl}`
 }
 export function parseImages(l) {
   return l ? l.split(',').map(i => add_oss_prefix(i)) : []
 }
 export function add_oss_prefix_images(images) {
-  return images.map(i => OSS_HOST + i)
+  return images.map(add_oss_prefix)
 }
 export function add_oss_prefix_subjects(subjects) {
   let newList = []

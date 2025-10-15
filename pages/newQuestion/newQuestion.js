@@ -1,15 +1,30 @@
 const api = require('../../utils/api')
 Page({
   data: {
-    inputItems: [
-      { 'type': 'text', 'key': 'title', 'title': '标题' },
-      { type: 'subject' },
-      { type: 'text', key: 'content', title: '内容', multiLine: true },
-      { type: 'images', key: 'images', value: [] }],
-    outputItems: {}
+    outputItems: {},
+    isCorrect: false,
+    correctedQuestionId: 0
   },
   onLoad: function () {
-    this.selectComponent('#input-group').updateData(this.data.inputItems)
+    // const cacheQ = wx.getStorageSync('cachedQuestion')
+    // if (cacheQ) {
+    //   const inputItems = this.data.inputItems
+    //   inputItems[0].value = cacheQ.title
+    //   inputItems[1].value = cacheQ.categoryId
+    //   inputItems[2].value = cacheQ.content
+    //   inputItems[3].value = cacheQ.images
+    //   this.setData({ inputItems: inputItems })
+    //   if (cacheQ.id) {
+    //     this.setData({ isCorrect: true, correctedQuestionId: cacheQ.id })
+    //   }
+    // }
+    this.selectComponent('#input-group').initData({
+      inputItems: [
+        { type: 'text', key: 'title', label: '标题', value: '' },
+        { type: 'subject' },
+        { type: 'text', key: 'content', label: '内容', multiLine: true, value: '' },
+        { type: 'images', key: 'images', value: [] }]
+    })
   },
   onInput: function (e) {
     this.setData({ 'outputItems': e.detail })
@@ -17,7 +32,32 @@ Page({
   onClear: function () {
     this.selectComponent('#input-group').clear()
   },
-  onSubmit: function () {
+  submitCorrect: function () {
+    const { title, content, images } = this.data.outputItems
+    api.correctQuestion({ title, content, images, id: this.data.correctedQuestionId }).then(res => {
+      wx.showToast({
+        title: '修改成功',
+      })
+      this.onClear()
+      setTimeout(() => {
+        wx.reLaunch({
+          url: '/pages/questions/questions?categoryId=' + this.data.inputItems.categoryId,
+        })
+      }, 1500);
+    }).catch(err => {
+      wx.showToast({
+        title: err,
+        icon: 'error'
+      })
+    })
+  },
+  cancelCorrect: function () {
+    wx.removeStorageSync('cachedQuestion')
+    wx.reLaunch({
+      url: '/pages/questions/questions?categoryId=' + this.data.outputItems.categoryId,
+    })
+  },
+  onSubmitNewQuestion: function () {
     wx.showLoading({
       title: '正在请求',
     })
@@ -33,12 +73,11 @@ Page({
           })
         }, 1000);
       })
-      .catch(e => {
+      .catch(err => {
         wx.hideLoading()
-        console.error('新建问题失败\n', e);
-        wx.showModal({
-          title: '新建问题失败',
-          content: e
+        wx.showToast({
+          title: err,
+          icon: 'error'
         })
       })
   }

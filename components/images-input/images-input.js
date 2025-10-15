@@ -1,22 +1,28 @@
+const util = require('../../utils/util')
 Component({
-
   data: {
     value: [],
-    'canAddImage': true,
-    'addImageText': '添加图片'
+    maxNum: 9,
+    canAddImage: true,
+    addImageText: '添加图片'
   },
   methods: {
-    updateData: function (d) {
-      this.setData({ value: d.value })
+    initData: function (d) {
+      // d = { value: ["2025/04/04/123.png","http://tmp","https://oss.com"] }
+      // add oss prefix if need
+      d.value = util.add_oss_prefix_images(d.value || [])
+      this.setData(d)
+      // after init data,need to trigger
+      this.trigger()
     },
     addImage: function () {
       wx.chooseMedia({
-        count: 9 - this.data.value.length,
+        count: this.data.maxNum - this.data.value.length,
         mediaType: 'image',
         success: (res) => {
           this.setData({ value: this.data.value.concat(res.tempFiles.map(i => i.tempFilePath)) })
-          if (this.data.value.length == 9) {
-            this.setData({ 'canAddImage': false, 'addImageText': '最多9张图片' })
+          if (this.data.value.length == this.data.maxNum) {
+            this.setData({ canAddImage: false, addImageText: '最多' + this.data.maxNum + '张图片' })
             return
           }
           this.trigger()
@@ -38,9 +44,9 @@ Component({
         content: '是否删除该图片',
         complete: (res) => {
           if (res.confirm) {
-            let value = this.data.value
-            value.splice(e.currentTarget.dataset['index'], 1)
-            this.setData({ 'value': value })
+            let images = this.data.value
+            images.splice(e.currentTarget.dataset['index'], 1)
+            this.setData({ value: images })
             this.trigger()
           }
         }

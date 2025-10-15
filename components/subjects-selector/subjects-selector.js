@@ -1,31 +1,36 @@
 const data = require('../../utils/data')
 Component({
-
   data: {
     subjects: [],
-    id: 0
+    // the value is the subject id
+    // default id is 1
+    value: 1,
+    selectedSubjectName: ''
   },
-
   methods: {
-    updateData: function () {
-
+    initData: function (d) {
+      // d = { value: 1 }
+      this.setData(d)
+      this.trigger()
     },
     onPickerChange: function (e) {
-      let id = e.detail.value
-      this.setData({ 'id': id })
+      // e.detail.value is the index
+      this.setData({ value: this.data.subjects[e.detail.value].id })
       this.trigger()
     },
     trigger: function () {
-      this.triggerEvent('input', { key: 'categoryId', value: this.data.subjects[this.data.id]['id'] })
+      // this funtion send the result to the father component
+      this.setData({ selectedSubjectName: this.data.subjects.filter(i => i.id == this.data.value)[0].name })
+      this.triggerEvent('input', { key: 'categoryId', value: this.data.value })
     },
     clear: function () {
-      this.setData({ id: 0 })
+      this.setData({ value: 1 })
+      this.trigger()
     }
   },
   lifetimes: {
     attached: function () {
       this.setData({ 'subjects': data.getSubjects() })
-      this.trigger()
     }
   }
 })

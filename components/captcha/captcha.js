@@ -1,36 +1,37 @@
 const api = require('../../utils/api.js')
 Component({
-  properties: {
-  },
   data: {
-    'image_url': '/assets/image/captcha_none.png',
-    'reset_text': '重置',
-    'button_disabled': false,
-    'cookie': '',
-    'code': '',
-    'timer': 0
+    imageUrl: '/assets/image/captcha_none.png',
+    cookie: '',
+    code: '',
+    timer: 0
   },
-  ready: function () {
-    this.get_captcha()
+  lifetimes: {
+    attached: function () {
+      this.getCaptcha()
+    }
   },
   methods: {
     reset: function () {
-      this.get_captcha()
+      this.getCaptcha()
     },
     onInput: function (e) {
-      this.setData({ 'code': e.detail.value })
+      this.setData({ code: e.detail.value })
     },
-    get_captcha: function () {
+    getCaptcha: function () {
       clearTimeout(this.data.timer)
       api.login_code().then(res => {
-        this.setData({ 'image_url': res.filePath, 'cookie': res.cookie })
+        this.setData({ imageUrl: res.filePath, cookie: res.cookie })
         this.setData({
-          'timer': setTimeout(() => {
+          timer: setTimeout(() => {
             this.reset()
           }, 30 * 1000)
         })
       }).catch(err => {
-        console.log(err)
+        wx.showToast({
+          title: err,
+          icon: 'error'
+        })
       })
     },
     onSubmit: function () {

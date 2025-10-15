@@ -20,5 +20,45 @@
     "ignoreDevUnusedFiles": true
   },
   "libVersion": "3.10.0",
-  "condition": {}
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "components-demo/captcha/captcha",
+          "pathName": "components-demo/captcha/captcha",
+          "query": "",
+          "scene": null,
+          "launchMode": "default"
+        },
+        {
+          "name": "pages/login/login",
+          "pathName": "pages/login/login",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "components-demo/input-group/input-group",
+          "pathName": "components-demo/input-group/input-group",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "components-demo/images-input/images-input",
+          "pathName": "components-demo/images-input/images-input",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "components-demo/subjects-selector/subjects-selector",
+          "pathName": "components-demo/subjects-selector/subjects-selector",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

@@ -3,25 +3,18 @@ const auth = require('./auth')
 const { api, baseUrl } = require('./constant')
 const validate = require('./validate')
 function getHeader() {
-  return {
-    'username': auth.getUsername(),
-    'token': auth.getToken()
-  }
+  return { 'username': auth.getUsername(), 'token': auth.getToken() }
 }
-export function login(username, password, code, cookie) {
-  let data = { 'username': username, 'password': password, 'code': code }
-  return new Promise((resolve, reject) => {
-    request({ method: api['login'].method, relativeUrl: api['login'].url, header: { 'cookie': cookie }, data: data })
-      .then(res => resolve(res.token))
-      .catch(reject)
-  })
+export function login(d) {
+  const { cookie, ...newD } = d
+  return request({ method: api['login'].method, relativeUrl: api['login'].url, header: { 'cookie': cookie }, data: newD }).then(res => res.token)
 }
 export function register(data) {
   let validate_result = validate.register(data)
   if (validate_result) return validate_result
   return request({ relativeUrl: api['register'].url, method: api['register'].method, data: data })
 }
-export function register_code(mail) {
+export function register_code({ mail }) {
   let validate_result = validate.mail_validate(mail)
   if (validate_result) return validate_result
   return request({ relativeUrl: api['register_code'].url, params: { mail: mail } })
@@ -172,5 +165,13 @@ export function correctComment(data) {
       let newImages = res.join(',')
       data['images'] = newImages
       return request({ relativeUrl: api.correctComment.url, method: api.correctComment.method, header: getHeader(), data: data })
+    })
+}
+export function correctQuestion(d) {
+  return uploadImages(d['images'])
+    .then(res => {
+      let newImages = res.join(',')
+      d['images'] = newImages
+      return request({ relativeUrl: api.correctQuestion.url, method: api.correctQuestion.method, header: getHeader(), data: d })
     })
 }

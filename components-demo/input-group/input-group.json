@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "the-input-group": "/components/input-group/input-group"
+  }
+}

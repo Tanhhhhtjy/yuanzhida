@@ -1,14 +1,14 @@
 Component({
   data: {
     key: 'key',
-    title: '标签',
+    label: '标签',
     value: '',
     placeholder: '请输入',
     multiLine: false,
     password: false
   },
   methods: {
-    _onInput: function (e) {
+    onInput: function (e) {
       this.setData({ value: e.detail.value.trim() })
       this.trigger()
     },
@@ -18,8 +18,10 @@ Component({
     clear: function () {
       this.setData({ value: '' })
     },
-    updateData: function (d) {
+    initData: function (d) {
+      // d = { value: 'value', key: 'key' }
       this.setData(d)
+      this.trigger()
     }
   }
 })

@@ -1,28 +1,32 @@
 const api = require('../../utils/api')
 Page({
   data: {
-    inputItems: [
-      { type: "text", key: "username", title: "用户名" },
-      { type: "text", key: "password", title: "密码", password: true },
-      { type: "text", key: "mail", title: "邮箱" },
-      { type: "text", key: "code", title: "验证码" },
-    ],
     outputItems: {},
     captchaText: "获取邮箱验证码"
   },
-  get_code: function () {
+  onLoad: function () {
+    this.selectComponent('#input-group').initData({
+      inputItems: [
+        { type: "text", key: "username", label: "用户名" },
+        { type: "text", key: "password", label: "密码", password: true },
+        { type: "text", key: "mail", label: "邮箱" },
+        { type: "text", key: "code", label: "验证码" },
+      ]
+    })
+  },
+  getCode: function () {
     wx.showLoading({
       title: '正在发送验证码',
     })
-    api.register_code(this.data.outputItems['mail']).then(res => {
+    api.register_code({ mail: this.data.outputItems.mail }).then(() => {
       wx.hideLoading()
       wx.showToast({
         title: '验证码发送成功',
       })
-    }).catch(e => {
+    }).catch(err => {
       wx.hideLoading()
       wx.showToast({
-        title: e,
+        title: err,
         icon: 'error'
       })
     })
@@ -40,11 +44,11 @@ Page({
         wx.reLaunch({
           url: '/pages/me/me',
         })
-      }, 2000);
-    }).catch(e => {
+      }, 1500);
+    }).catch(err => {
       wx.hideLoading()
       wx.showToast({
-        title: e,
+        title: err,
         icon: 'error'
       })
     })

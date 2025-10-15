@@ -1,9 +1,11 @@
+const util = require('../../utils/util')
 Component({
   data: {
     images: []
   },
   methods: {
-    updateData: function (d) {
+    initData: function (d) {
+      d.images = util.add_oss_prefix_images(d.images)
       this.setData(d)
     },
     previewImage: function (e) {

@@ -1,0 +1,1 @@
+<the-input-group bind:input="onInput" id="input-group"></the-input-group>

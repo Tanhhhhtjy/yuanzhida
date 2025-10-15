@@ -27,7 +27,7 @@ Component({
         })
       })
     },
-    updateData: function (d) {
+    initData: function (d) {
       this.setData(d)
       this.setData({ isOwn: data.isOwn(this.data.username) })
     },

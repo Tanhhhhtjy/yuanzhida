@@ -1,6 +1,5 @@
-<the-toptip text="{{toptipText}}"></the-toptip>
-<the-input-group inputItems="{{inputItems}}" bind:input="onInput">
+<the-input-group id="input-group" inputItems="{{inputItems}}" bind:input="onInput">
 </the-input-group>
-<the-button text="提交" bind:the_tap="onSubmit"></the-button>
-<view class="backgroud" wx:if="{{captcha_show}}" bind:tap="captcha_hide"></view>
-<the-captcha class="captcha"  wx:if="{{captcha_show}}" bind:submit="submit_login"></the-captcha>
+<the-button text="显示验证码" bind:the_tap="showCaptcha"></the-button>
+<view class="backgroud" wx:if="{{captchaShow}}" bind:tap="hideCaptcha"></view>
+<the-captcha class="captcha" wx:if="{{captchaShow}}" bind:submit="onSubmitLogin"></the-captcha>

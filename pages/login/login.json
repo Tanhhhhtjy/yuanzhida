@@ -2,7 +2,6 @@
   "usingComponents": {
     "the-input-group": "/components/input-group/input-group",
     "the-button": "/components/button/button",
-    "the-captcha": "/components/captcha/captcha",
-    "the-toptip": "/components/toptip/toptip"
+    "the-captcha": "/components/captcha/captcha"
   }
 }

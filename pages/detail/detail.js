@@ -2,18 +2,17 @@ const api = require('../../utils/api')
 const data = require('../../utils/data')
 const util = require('../../utils/util')
 Page({
-
   data: {
     question: {},
     questionId: 0,
     CommentPageCurrent: 1,
-    inputItems: [
-      { type: 'text', key: 'content', title: '内容', multiLine: true, value: '' },
-      { type: 'images', key: 'images', value: [] }
-    ],
     outputItems: {},
     isCorrect: false,
-    correctId: 0
+    correctCommentId: 0,
+    inputItems: [
+      { type: 'text', key: 'content', label: '内容', multiLine: true, value: '' },
+      { type: 'images' }
+    ]
   },
 
   onLoad(options) {
@@ -24,24 +23,27 @@ Page({
       this.updateImagesPreview()
     })
     this.updateComments()
-    this.selectComponent('#input-group').updateData(this.data.inputItems)
+    this.selectComponent('#input-group').initData({
+
+    })
   },
   cancelCorrect: function () {
     this.setData({ isCorrect: false })
   },
   onUpdate: function () {
+    // when update comments' status,reflesh the comments from the api
     this.updateComments()
   },
   updateImagesPreview: function () {
-    this.selectComponent('#images-preview').updateData({ images: this.data.question.images })
+    this.selectComponent('#images-preview').initData({ images: this.data.question.images })
   },
   updateUserAndTime: function () {
-    this.selectComponent('#user-and-time').updateData({ username: this.data.question.username, time: this.data.question.createTime })
+    this.selectComponent('#user-and-time').initData({ username: this.data.question.username, time: this.data.question.createTime })
   },
   updateQuestionInfo: function () {
     const { solvedFlag, viewCount, categoryId, commentCount, username, likeCount, userId, likeStatus } = this.data.question
-    this.selectComponent('#question-info').updateData({
-      solvedFlag: solvedFlag, viewCount: viewCount, commentCount: commentCount, likeCount: likeCount, entityUserId: userId, categoryId: categoryId, username: username, questionId: this.data.questionId, likeStatus: likeStatus
+    this.selectComponent('#question-info').initData({
+      solvedFlag, viewCount, commentCount, likeCount, entityUserId: userId, categoryId, username, questionId: this.data.questionId, likeStatus
     })
   },
   updateQuestion: function () {
@@ -51,27 +53,25 @@ Page({
         res.createTime = util.parseTime(res.createTime)
         res.subject_name = data.getSubjectName(res.categoryId)
         this.setData({ question: res })
-      }).catch(e => {
+      }).catch(err => {
         wx.showToast({
-          title: e,
+          title: err,
           icon: 'error'
         })
       })
   },
   updateComments: function () {
-    api.comments({ 'id': this.data.questionId, size: 10, current: this.data.CommentPageCurrent })
-      .then(res => {
-        this.selectComponent('#comments').updateData({ comments: util.add_oss_prefix_comments(res.records), entityUserId: this.data.question.userId })
-        this.selectComponent('#pagination').updateData({ total: parseInt((res.total + res.size - 1) / res.size), current: this.data.CommentPageCurrent })
-      }).catch(err => {
-        console.error(err);
-        wx.showToast({
-          title: `获取解答失败${e}`,
-        })
+    api.comments({ id: this.data.questionId, size: 10, current: this.data.CommentPageCurrent }).then(res => {
+      this.selectComponent('#comments').initData({ comments: util.add_oss_prefix_comments(res.records), entityUserId: this.data.question.userId })
+      this.selectComponent('#pagination').initData({ total: parseInt((res.total + res.size - 1) / res.size), current: this.data.CommentPageCurrent })
+    }).catch(err => {
+      wx.showToast({
+        title: err,
       })
+    })
   },
   onInput: function (e) {
-    this.setData({ 'outputItems': e.detail })
+    this.setData({ outputItems: e.detail })
   },
   submit_answer: function () {
     let outputItems = this.data.outputItems
@@ -105,14 +105,14 @@ Page({
     const inputItems = this.data.inputItems
     inputItems[0].value = content
     inputItems[1].value = images
-    this.setData({ isCorrect: true, inputItems: inputItems, correctId: id })
-    this.selectComponent('#input-group').updateData(this.data.inputItems)
+    this.setData({ isCorrect: true, inputItems: inputItems, correctCommentId: id })
+    this.selectComponent('#input-group').initData(this.data.inputItems)
   },
   submitCorrect: function () {
     wx.showLoading({
       title: '正在提交',
     })
-    api.correctComment({ id: this.data.correctId, content: this.data.outputItems.content, images: this.data.outputItems.images }).then(() => {
+    api.correctComment({ id: this.data.correctCommentId, content: this.data.outputItems.content, images: this.data.outputItems.images }).then(() => {
       wx.hideLoading()
       wx.showToast({
         title: '修改成功',
@@ -130,7 +130,8 @@ Page({
     })
   },
   onCorrentQuestion: function () {
-    wx.setStorageSync('correctQuestion', this.data.question)
+    const { title, content, categoryId, images, id } = this.data.question
+    wx.setStorageSync('cachedQuestion', { title, content, categoryId, id, images })
     setTimeout(() => {
       wx.reLaunch({
         url: '/pages/newQuestion/newQuestion',

@@ -1,5 +1,5 @@
 <view class="container">
-  <the-input-group inputItems="{{inputItems}}" bind:input="onInput"> </the-input-group>
-  <the-button text="{{captchaText}}" bind:the_tap="get_code"></the-button>
+  <the-input-group id="input-group" bind:input="onInput"> </the-input-group>
+  <the-button text="{{captchaText}}" bind:the_tap="getCode"></the-button>
   <the-button text="注册" bind:the_tap="submit"></the-button>
 </view>

@@ -4,7 +4,7 @@ const util = require('./util')
 const auth = require('./auth')
 export function load_subjects() {
   api.subjects().then(res => {
-    data.saveSubjects(util.add_oss_prefix_subjects(res))
+    data.saveSubjects(util.add_oss_prefix_subjects(res.sort((a, b) => a.id - b.id)))
   }).catch(err => {
     wx.showToast({
       title: err,

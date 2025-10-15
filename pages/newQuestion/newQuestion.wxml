@@ -1,5 +1,11 @@
 <scroll-view class="container" scroll-y="true">
   <the-input-group id="input-group" inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
   <the-button text="清空" bind:the_tap="onClear"></the-button>
-  <the-button text="提交" bind:the_tap="onSubmit"></the-button>
+  <block wx:if="{{isCorrect}}">
+    <the-button text="取消修改" bind:the_tap="cancelCorrect"></the-button>
+    <the-button text="提交修改" bind:the_tap="submitCorrect"></the-button>
+  </block>
+  <block wx:else>
+    <the-button text="提交" bind:the_tap="onSubmitNewQuestion"></the-button>
+  </block>
 </scroll-view>

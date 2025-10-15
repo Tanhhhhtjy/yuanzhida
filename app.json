@@ -6,7 +6,11 @@
     "pages/login/login",
     "pages/register/register",
     "pages/questions/questions",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "components-demo/subjects-selector/subjects-selector",
+    "components-demo/images-input/images-input",
+    "components-demo/input-group/input-group",
+    "components-demo/captcha/captcha"
   ],
   "tabBar": {
     "color": "0x000000",
