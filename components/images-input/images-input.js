@@ -7,11 +7,15 @@ Component({
     addImageText: '添加图片'
   },
   methods: {
+    refleshImagesShow: function () {
+      this.selectComponent('#images-preview').initData({ images: this.data.value, canDel: true })
+    },
     initData: function (d) {
       // d = { value: ["2025/04/04/123.png","http://tmp","wxfile://tmp"] }
       // add oss prefix if need
       d.value = util.toVisibleImages(d.value || [])
       this.setData(d)
+      this.refleshImagesShow()
       // after init data,need to trigger
       this.trigger()
     },
@@ -21,6 +25,7 @@ Component({
         mediaType: 'image',
         success: (res) => {
           this.setData({ value: this.data.value.concat(res.tempFiles.map(i => i.tempFilePath)) })
+          this.refleshImagesShow()
           if (this.data.value.length == this.data.maxNum) {
             this.setData({ canAddImage: false, addImageText: '最多' + this.data.maxNum + '张图片' })
             return
@@ -31,23 +36,19 @@ Component({
     },
     clear: function () {
       this.setData({ value: [] })
+      this.refleshImagesShow()
     },
-    previewImage: function (e) {
-      wx.previewImage({
-        urls: this.data.value,
-        current: this.data.value[e.currentTarget.dataset['index']]
-      })
-    },
-    delImage: function (e) {
+    onDelImage: function (e) {
       wx.showModal({
         title: '警告',
         content: '是否删除该图片',
         complete: (res) => {
           if (res.confirm) {
             let images = this.data.value
-            images.splice(e.currentTarget.dataset['index'], 1)
+            images.splice(e.detail.index, 1)
             this.setData({ value: images })
             this.trigger()
+            this.refleshImagesShow()
           }
         }
       })

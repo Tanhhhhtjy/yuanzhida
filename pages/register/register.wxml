@@ -1,5 +1,9 @@
 <view class="container">
   <the-input-group id="input-group" bind:input="onInput"> </the-input-group>
-  <the-button text="获取邮箱验证码" bind:the_tap="getCode"></the-button>
-  <the-button text="注册" bind:the_tap="submit"></the-button>
+  <view class="image-container">
+    <the-button size="small" text="获取邮箱验证码" bind:the_tap="getCode"></the-button>
+  </view>
+  <view class="image-container">
+    <the-button size="small" text="注册" bind:the_tap="submit"></the-button>
+  </view>
 </view>

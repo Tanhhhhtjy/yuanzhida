@@ -10,6 +10,15 @@ export function toVisibleImages(images) {
 function parseImageStr(s) {
   return s.length ? s.split(',') : []
 }
+// used in init and page subjects
+export function modifyCategories(l) {
+  const newL = []
+  for (const i of l) {
+    i.image = toVisibleImage(i.image)
+    newL.push(i)
+  }
+  return newL
+}
 // used in page detail,deal with the question
 export function modifyItem(i) {
   i.images = toVisibleImages(parseImageStr(i.images))
@@ -18,9 +27,8 @@ export function modifyItem(i) {
 }
 // used in page detail,deal with the comments
 export function modifyItemList(l) {
-  console.log(l);
   const newL = []
-  for (const i of l) {
+  for (let i of l) {
     i = modifyItem(i)
     newL.push(i)
   }

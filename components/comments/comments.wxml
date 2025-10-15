@@ -1,5 +1,5 @@
 <view class="container">
-  <view wx:for="{{comments}}" wx:key="id">
+  <view class="item" wx:for="{{comments}}" wx:key="id">
     <the-user-and-time class="user-and-time"></the-user-and-time>
     <view class="content">{{item.content}}</view>
     <the-images-preview class="images-preview" images="{{item.images}}"></the-images-preview>

@@ -1,16 +1,44 @@
 .container {
   height: 100%;
+
 }
 
+.main,
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+.main{
+  box-sizing: border-box;
+  padding: 20rpx;
+}
 .title {
   font-size: 60rpx;
 }
 
-.subject,
 .content {
   font-size: 48rpx;
 }
 
-.image {
-  height: 300rpx;
+.subject {
+  font-size: 40rpx;
+}
+
+.content {
+  opacity: .75;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.line {
+  border-top: 1px solid black;
+  width: 200vw;
+  position: relative;
+  left: -50vw;
 }

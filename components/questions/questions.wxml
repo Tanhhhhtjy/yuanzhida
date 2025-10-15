@@ -6,7 +6,7 @@
       </navigator>
     </view>
     <the-user-and-time class="user-and-time"></the-user-and-time>
-    <view class="content">{{item.content}}</view>
+    <view class="content" class="content">{{item.content}}</view>
     <the-question-info class="question-info"></the-question-info>
   </view>
 </view>

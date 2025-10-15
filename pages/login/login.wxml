@@ -1,5 +1,8 @@
-<the-input-group id="input-group" inputItems="{{inputItems}}" bind:input="onInput">
-</the-input-group>
-<the-button text="显示验证码" bind:the_tap="showCaptcha"></the-button>
+<view class="container">
+  <the-input-group id="input-group" inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
+  <view class="image-container">
+  <the-button size="small" text="显示验证码" bind:the_tap="showCaptcha"></the-button>
+  </view>
+</view>
 <view class="backgroud" wx:if="{{captchaShow}}" bind:tap="hideCaptcha"></view>
 <the-captcha class="captcha" wx:if="{{captchaShow}}" bind:submit="onSubmitLogin"></the-captcha>

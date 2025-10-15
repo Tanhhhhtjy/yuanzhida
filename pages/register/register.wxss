@@ -3,3 +3,9 @@
   flex-direction: column;
   gap: 20rpx;
 }
+
+.image-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

@@ -1,9 +1,9 @@
 <scroll-view class="container" scroll-y="true">
-  <view class="title">源智答</view>
+  <view class="head">源智答</view>
   <view class="list">
-    <view wx:for="{{subjects}}" wx:key="id">
+    <view class="image-box" wx:for="{{subjects}}" wx:key="id">
       <navigator url="{{'/pages/questions/questions?categoryId='+item.id}}">
-        <image src="{{item.image}}" mode="widthFix" />
+        <image class="image" src="{{item.image}}" mode="widthFix" />
       </navigator>
     </view>
   </view>

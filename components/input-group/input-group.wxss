@@ -1,1 +1,5 @@
-/* components/input-group/input-group.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}

@@ -1,15 +1,12 @@
-.container{
+@import "../../style/style.wxss";
+
+.container {
   height: 100%;
 }
-.list{
+
+.list {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 40rpx;
-}
-
-.title {
-  text-align: center;
-  font-size: 100rpx;
-  margin: 40rpx 0;
 }

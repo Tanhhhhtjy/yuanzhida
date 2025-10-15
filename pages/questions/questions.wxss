@@ -1,16 +1,13 @@
+@import "../../style/style.wxss";
+
 .container {
   height: 100%;
   width: 100%;
-  padding: 30rpx;
+  padding: 10rpx;
   box-sizing: border-box;
 }
 
-.image-box {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 30rpx auto;
-}
+
 
 .question-item {
   border-bottom: black 1px solid;

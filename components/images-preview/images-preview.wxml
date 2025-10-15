@@ -1,3 +1,6 @@
 <view class="container">
-  <image class="image" wx:key="*this" bind:tap="previewImage" data-index="{{index}}" wx:for="{{images}}" src="{{item}}" mode="heightFix" />
+  <view class="image-box" wx:key="*this" wx:for="{{images}}">
+    <image class="image" bind:tap="previewImage" data-index="{{index}}" src="{{item}}" mode="aspectFill" />
+    <image wx:if="{{canDel}}" catch:tap="delImage" data-index="{{index}}" catch:tap="delImage" class="trash" data-index="{{index}}" src="/assets/image/trash.png" mode="heightFix" />
+  </view>
 </view>

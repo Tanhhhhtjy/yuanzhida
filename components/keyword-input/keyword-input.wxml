@@ -1,6 +1,8 @@
 <view class="container">
   <the-input id="input" class="left" text="关键字" bind:input="onKeywordChange"></the-input>
+  <view class="button-container">
   <the-button bind:the_tap="solvedFilterChange" size="small" text="{{solvedFilterText}}"></the-button>
   <the-button bind:the_tap="submitKeyword" size="small" text="确认"></the-button>
+  </view>
 </view>
 <view bind:tap="chooseSuggestion" data-text="{{item}}" wx:for="{{SuggestedWords}}" wx:key="*this">{{item}}</view>

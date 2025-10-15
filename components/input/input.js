@@ -1,7 +1,7 @@
 Component({
   data: {
     key: 'key',
-    label: '标签',
+    label: '',
     value: '',
     placeholder: '请输入',
     multiLine: false,

@@ -13,7 +13,7 @@ Page({
     } else {
       // if get the data from localStorage fail
       api.subjects().then(res => {
-        subjects = util.toVisibleItemList(res.sort((a, b) => a.id - b.id))
+        subjects = util.modifyCategories(res.sort((a, b) => a.id - b.id))
         this.setData({ subjects: subjects })
       }).catch(interact.errorToast)
     }

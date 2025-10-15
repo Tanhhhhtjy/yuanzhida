@@ -1,12 +1,8 @@
 <view class="container" wx:if="{{total}}">
   <block wx:for="{{indexList}}" wx:key="*this">
-    <view wx:if="{{item==current}}" class="{{item==current?'current':''}}">
-      {{item}}
-    </view>
-    <view bind:tap="submitRedirect" wx:else data-page="{{item}}">
-      {{item}}
-    </view>
+    <view wx:if="{{item==current}}" class="item {{item==current?'current':''}}"> {{item}} </view>
+    <view class="item" bind:tap="submitRedirect" wx:else data-page="{{item}}"> {{item}} </view>
   </block>
-  <the-input-group id="input-group" class="input" inputItems="{{inputItems}}" bind:input="onInput"></the-input-group>
+  <the-input id="input" class="input" bind:input="onInput"></the-input>
   <the-button text="确认" bind:the_tap="submitRedirect" size="small"></the-button>
 </view>

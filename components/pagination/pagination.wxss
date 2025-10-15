@@ -1,13 +1,16 @@
-.container{
+.container {
   display: flex;
-  flex-direction: two;
+  flex-direction: row;
   gap: 25rpx;
+  align-items: center;
   font-size: 50rpx;
-  padding: 0 30rpx;
+  padding: 10rpx 20rpx;
 }
-.input{
+
+.input {
   flex: 1;
 }
-.current{
-  color: red;
+
+.current {
+  text-decoration: underline;
 }

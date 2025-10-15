@@ -2,7 +2,7 @@
   <image src="{{imageUrl}}" mode="aspectFit" class="image" />
   <the-input text="验证码" value="" key="code" bind:input="onInput" data-label="code"></the-input>
   <view class="button-container">
-    <the-button text="重置" catch:the_tap="reset"></the-button>
-    <the-button text="提交" catch:the_tap="onSubmit"></the-button>
+    <the-button size="small" text="重置" catch:the_tap="reset"></the-button>
+    <the-button size="small" text="提交" catch:the_tap="onSubmit"></the-button>
   </view>
 </view>

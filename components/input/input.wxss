@@ -1,31 +1,36 @@
 .container {
   display: flex;
   flex-direction: row;
-  padding: 30rpx 0;
-  gap: 30rpx;
 }
 
 .column {
   flex-direction: column;
 }
 
+.textarea {
+  min-height: 200rpx;
+  width: 100%;
+  border: 1px solid black;
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+}
+
+.label {
+  margin-right: 20rpx;
+}
+
 .label,
 .input-box {
-  height: 45rpx;
   font-size: 45rpx;
-  line-height: 45rpx;
-}
-
-.input {
-  display: inline-block;
 }
 
 .input-box {
-  padding-bottom: 3rpx;
-  flex: 1;
   border-bottom: 1px solid black;
+  flex: 1;
 }
 
-.textarea {
-  width: 100%;
+.column .input-box {
+  border: 0px;
 }

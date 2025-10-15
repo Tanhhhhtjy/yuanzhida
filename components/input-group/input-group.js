@@ -6,7 +6,7 @@ Component({
   methods: {
     initData: function (d) {
       this.setData(d)
-      const els = this.selectAllComponents('.input')
+      const els = this.selectAllComponents('.item')
       for (const i in els) {
         els[i].initData(this.data.inputItems[i])
       }
@@ -18,7 +18,7 @@ Component({
       this.triggerEvent('input', outputItems)
     },
     clear: function () {
-      this.selectAllComponents('.input').forEach(i => i.clear());
+      this.selectAllComponents('.item').forEach(i => i.clear());
     }
   }
 })

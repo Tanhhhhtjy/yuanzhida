@@ -1,12 +1,25 @@
-.captcha{
+.captcha {
   position: fixed;
   z-index: 500;
 }
-.backgroud{
+
+.backgroud {
   position: fixed;
   z-index: 250;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }

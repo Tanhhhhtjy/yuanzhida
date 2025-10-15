@@ -1,7 +1,7 @@
-const util = require('../../utils/util')
 Component({
   data: {
-    images: []
+    images: [],
+    canDel: false
   },
   methods: {
     initData: function (d) {
@@ -14,5 +14,8 @@ Component({
         current: this.data.images[e.currentTarget.dataset['index']]
       })
     },
+    delImage: function (e) {
+      this.triggerEvent('delImage', { index: e.currentTarget.dataset.index })
+    }
   }
 })

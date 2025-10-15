@@ -5,7 +5,7 @@ const auth = require('./auth')
 const interact = require('./interact')
 export function load_subjects() {
   api.subjects().then(res => {
-    data.saveSubjects(util.toVisibleItemList(res.sort((a, b) => a.id - b.id)))
+    data.saveSubjects(util.modifyCategories(res.sort((a, b) => a.id - b.id)))
   }).catch(interact.errorToast)
 }
 export function auto_logout() {

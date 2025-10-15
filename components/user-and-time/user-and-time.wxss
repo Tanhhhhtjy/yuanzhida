@@ -2,13 +2,16 @@
 .user {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
-
+.user{
+  gap: 10rpx;
+}
 .container {
   justify-content: space-between;
 }
 
 .avatar {
-  height: 30rpx;
-  width: 30rpx;
+  height: 35rpx;
+  width: 35rpx;
 }

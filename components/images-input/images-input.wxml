@@ -1,7 +1,6 @@
 <view class="image-list">
-  <view class="item" wx:for="{{value}}" wx:key="*this">
-    <image catch:tap="previewImage" data-index="{{index}}" class="image" src="{{item}}" mode="aspectFill" />
-    <image catch:tap="delImage" class="trash" data-index="{{index}}" src="/assets/image/trash.png" mode="heightFix" />
+  <the-images-preview bind:delImage="onDelImage" id="images-preview"></the-images-preview>
+  <view class="button-container">
+    <the-button size="small" text="{{addImageText}}" bind:the_tap="addImage" disabled="{{!canAddImage}}"></the-button>
   </view>
-  <the-button text="{{addImageText}}" bind:the_tap="addImage" disabled="{{!canAddImage}}"></the-button>
 </view>

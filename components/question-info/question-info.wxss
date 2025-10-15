@@ -4,6 +4,16 @@
 .left {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.left {
+  gap: 10rpx;
+}
+.item {
+  min-width: 80rpx;
+  gap: 3rpx;
 }
 
 .container {
@@ -11,6 +21,6 @@
 }
 
 .icon {
-  height: 30rpx;
-  width: 30rpx;
+  height: 35rpx;
+  width: 35rpx;
 }
