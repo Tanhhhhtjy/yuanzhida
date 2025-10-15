@@ -49,15 +49,19 @@ function _uploadImagePromise(filePaths, index, outputList) {
     if (filePaths.length == 0) resolve([])
     let filePath = filePaths[index]
     // https://oss.com/image.png
-    if (filePath.startsWith('https')) filePath = filePath.substring(OSS_HOST.length)
+    if (filePath.startsWith('https')) {
+      filePath = filePath.substring(OSS_HOST.length)
+      return
+    }
     // http://tmp
-    if (filePath.startsWith('http')) {
+    if (filePath.startsWith('http') || filePath.startsWith('wxfile')) {
       oss_upload(filePath).then(res => {
         outputList = outputList.concat(res)
         if (index + 1 < filePaths.length) {
           _uploadImagePromise(filePaths, index + 1, outputList).then(resolve).catch(reject)
         } else resolve(outputList)
       }).catch(reject)
+      return
     }
     // 2025/12/12/image.png
     outputList = outputList.concat(filePath)
