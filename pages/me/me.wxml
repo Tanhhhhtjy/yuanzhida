@@ -2,6 +2,15 @@
   <view class="container">
     <view class="username">{{username}}</view>
     <the-button text="退出登录" bind:the_tap="logout"></the-button>
+    <navigator url="/pages/questions/questions?pageType=1">
+      <the-button text="浏览记录"></the-button>
+    </navigator>
+    <navigator url="/pages/questions/questions?pageType=2">
+      <the-button text="我的题目"></the-button>
+    </navigator>
+    <navigator url="/pages/questions/questions?pageType=3">
+      <the-button text="收藏列表"></the-button>
+    </navigator>
   </view>
 </block>
 <block wx:else>

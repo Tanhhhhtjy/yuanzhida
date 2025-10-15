@@ -23,5 +23,9 @@ export const api = {
   deleteQuestion: { url: '/api/answerly/v1/question', method: 'DELETE' },
   correctQuestion: { url: '/api/answerly/v1/question', method: 'PUT' },
   deleteComment: { url: '/api/answerly/v1/comment', method: 'DELETE' },
-  correctComment: { url: '/api/answerly/v1/comment', method: 'PUT' }
+  correctComment: { url: '/api/answerly/v1/comment', method: 'PUT' },
+  historyQuestions: { url: '/api/answerly/v1/question/recent/page' },
+  collectedQuestions: { url: '/api/answerly/v1/question/recent/page' },
+  myComments: { url: '/api/answerly/v1/comment/my/page' },
+  myQuestions: { url: '/api/answerly/v1/question/my/page' }
 }

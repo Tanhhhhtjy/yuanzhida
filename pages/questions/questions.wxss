@@ -17,8 +17,8 @@
   padding: 10rpx;
 }
 
-.title {
-  font-size: 60rpx;
+#title {
+  font-size: 100rpx;
 }
 
 .content {

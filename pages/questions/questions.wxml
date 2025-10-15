@@ -1,8 +1,13 @@
 <scroll-view class="container" scroll-y="true">
-  <view class="image-box">
-    <image class="image" src="{{subject_image}}" mode="widthFix" />
-  </view>
-  <the-keyword-input bind:submitKeyword="onSubmitKeyword"></the-keyword-input>
+  <block wx:if="{{pageType}}">
+    <view id="title">{{title}}</view>
+  </block>
+  <block wx:else>
+    <view class="image-box">
+      <image class="image" src="{{subject_image}}" mode="widthFix" />
+    </view>
+    <the-keyword-input bind:submitKeyword="onSubmitKeyword"></the-keyword-input>
+  </block>
   <the-questions id="questions"></the-questions>
   <the-pagination id="pagination" bind:redirect="onRedirect"></the-pagination>
 </scroll-view>

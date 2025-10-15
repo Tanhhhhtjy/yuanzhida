@@ -1,23 +1,23 @@
 const util = require('./util')
 const auth = require('./auth')
-const { api, baseUrl, OSS_HOST } = require('./constant')
+const { baseUrl, OSS_HOST, api } = require('./constant')
 const validate = require('./validate')
 function getHeader() {
   return { 'username': auth.getUsername(), 'token': auth.getToken() }
 }
 export function login(d) {
   const { cookie, ...newD } = d
-  return request({ method: api['login'].method, relativeUrl: api['login'].url, header: { 'cookie': cookie }, data: newD }).then(res => res.token)
+  return request({ method: api['login'].method, url: api['login'].url, header: { 'cookie': cookie }, data: newD }).then(res => res.token)
 }
 export function register(data) {
   let validate_result = validate.register(data)
   if (validate_result) return validate_result
-  return request({ relativeUrl: api['register'].url, method: api['register'].method, data: data })
+  return request({ url: api['register'].url, method: api['register'].method, data: data })
 }
 export function register_code({ mail }) {
   let validate_result = validate.mail_validate(mail)
   if (validate_result) return validate_result
-  return request({ relativeUrl: api['register_code'].url, params: { mail: mail } })
+  return request({ url: api['register_code'].url, params: { mail: mail } })
 }
 export function login_code() {
   return new Promise((accept, reject) => {
@@ -32,10 +32,10 @@ export function login_code() {
   })
 }
 export function questions(params) {
-  return request({ relativeUrl: api['questions'].url, params: params })
+  return request({ url: api['questions'].url, params: params })
 }
 export function subjects() {
-  return request({ relativeUrl: api['subjects'].url })
+  return request({ url: api['subjects'].url })
 }
 function ImagesMiddleware(item) {
   return _uploadImagePromise(item.images, 0, []).then(res => {
@@ -86,31 +86,31 @@ export function oss_upload(filePath) {
   })
 }
 export function questionDetail(id) {
-  return request({ relativeUrl: api['questionDetail'].url + id, header: getHeader() })
+  return request({ url: api['questionDetail'].url + id, header: getHeader() })
 }
 export function comments(params) {
-  return request({ relativeUrl: api['comments'].url, params: params, header: getHeader() })
+  return request({ url: api['comments'].url, params: params, header: getHeader() })
 }
 export function newQuestion(data) {
   let validateResult = validate.newQuestion(data)
   if (validateResult) return validateResult
   return ImagesMiddleware(data).then(res => {
-    return request({ relativeUrl: api['newQuestion'].url, method: api['newQuestion'].method, header: getHeader(), data: res })
+    return request({ url: api['newQuestion'].url, method: api['newQuestion'].method, header: getHeader(), data: res })
   })
 }
 export function newAnswer(d) {
   return ImagesMiddleware(d).then(res => {
-    request({ relativeUrl: api['newAnswer'].url, method: api['newAnswer'].method, header: getHeader(), data: res })
+    request({ url: api['newAnswer'].url, method: api['newAnswer'].method, header: getHeader(), data: res })
   })
 }
-function request({ method = 'GET', relativeUrl, params = {}, header = null, data = null }) {
-  let url = baseUrl + relativeUrl
+function request({ method = 'GET', url, params = {}, header = null, data = null }) {
+  let finalUrl = baseUrl + url
   if (Object.keys(params)) {
-    url = url + '?' + util.paramsUnion(params)
+    finalUrl = finalUrl + '?' + util.paramsUnion(params)
   }
   return new Promise((accept, reject) => {
     wx.request({
-      url: url, method: method, header: header, data: data,
+      url: finalUrl, method: method, header: header, data: data,
       success: (res) => {
         if (res.data.code == 0) {
           // here parse the data
@@ -126,36 +126,53 @@ function request({ method = 'GET', relativeUrl, params = {}, header = null, data
   })
 }
 export function likeQuestion(id, entityUserId) {
-  return request({ relativeUrl: api['likeQuestion'].url, method: api['likeQuestion'].method, data: { id: id, entityUserId: entityUserId }, header: getHeader() })
+  return request({ url: api['likeQuestion'].url, method: api['likeQuestion'].method, data: { id: id, entityUserId: entityUserId }, header: getHeader() })
 }
 export function likeComment(id, entityUserId) {
-  return request({ relativeUrl: api['likeComment'].url, method: api['likeComment'].method, data: { id: id, entityUserId: entityUserId }, header: getHeader() })
+  return request({ url: api['likeComment'].url, method: api['likeComment'].method, data: { id: id, entityUserId: entityUserId }, header: getHeader() })
 }
 export function checkLogin() {
-  return request({ relativeUrl: api.checkLogin.url, params: { username: auth.getUsername(), token: auth.getToken() }, header: getHeader() })
+  return request({ url: api.checkLogin.url, params: { username: auth.getUsername(), token: auth.getToken() }, header: getHeader() })
 }
 export function flagSolved(id, isSolved) {
-  return request({ relativeUrl: api.flagSolved.url, method: api.flagSolved.method, header: getHeader(), data: { id: id, isSolved: isSolved } })
+  return request({ url: api.flagSolved.url, method: api.flagSolved.method, header: getHeader(), data: { id: id, isSolved: isSolved } })
 }
 export function flagUseful(id) {
-  return request({ relativeUrl: api.flagUseful.url, method: api.flagUseful.method, header: getHeader(), data: { id: id } })
+  return request({ url: api.flagUseful.url, method: api.flagUseful.method, header: getHeader(), data: { id: id } })
 }
 export function keywordSuggest(s) {
-  return request({ relativeUrl: api.keywordSuggest.url, params: { keyword: s } })
+  return request({ url: api.keywordSuggest.url, params: { keyword: s } })
 }
 export function deleteQuestion(id) {
-  return request({ relativeUrl: api.deleteQuestion.url, method: api.deleteQuestion.method, header: getHeader(), params: { id: id } })
+  return request({ url: api.deleteQuestion.url, method: api.deleteQuestion.method, header: getHeader(), params: { id: id } })
 }
 export function deleteComment(id) {
-  return request({ relativeUrl: api.deleteComment.url, method: api.deleteComment.method, header: getHeader(), params: { id: id } })
+  return request({ url: api.deleteComment.url, method: api.deleteComment.method, header: getHeader(), params: { id: id } })
 }
 export function correctComment(data) {
   return ImagesMiddleware(data).then(res => {
-    return request({ relativeUrl: api.correctComment.url, method: api.correctComment.method, header: getHeader(), data: res })
+    return request({ url: api.correctComment.url, method: api.correctComment.method, header: getHeader(), data: res })
   })
 }
 export function correctQuestion(d) {
   return ImagesMiddleware(d).then(res => {
-    return request({ relativeUrl: api.correctQuestion.url, method: api.correctQuestion.method, header: getHeader(), data: res })
+    const { url, method } = api.correctQuestion
+    return request({ url, method, header: getHeader(), data: res })
   })
+}
+export function myQuestions(p) {
+  const { url } = api.myQuestions
+  return request({ url, header: getHeader(), params: p })
+}
+export function myComments(p) {
+  const { url } = api.myComments
+  return request({ url, header: getHeader(), params: p })
+}
+export function collectedQuestions(p) {
+  const { url } = api.collectedQuestions
+  return request({ url, header: getHeader(), params: p })
+}
+export function historyQuestions(p) {
+  const { url } = api.historyQuestions
+  return request({ url, header: getHeader(), params: p })
 }
