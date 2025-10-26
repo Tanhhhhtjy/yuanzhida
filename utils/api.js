@@ -176,6 +176,15 @@ export function collectedQuestions(p) {
   const { url } = api.collectedQuestions
   return request({ url, header: getHeader(), params: p })
 }
+export function sendResetPasswordCode({ mail }) {
+  let validate_result = validate.mail_validate(mail)
+  if (validate_result) return validate_result
+  return request({ url: api['sendResetPasswordCode'].url, params: { mail: mail } })
+}
+export function resetPassword({ username, code, newPassword }) {
+  const { url, method } = api['resetPassword']
+  return request({ url, method, data: { username, code, newPassword } })
+}
 export function historyQuestions(p) {
   const { url } = api.historyQuestions
   return request({ url, header: getHeader(), params: p })

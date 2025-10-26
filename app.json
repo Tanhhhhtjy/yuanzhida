@@ -5,6 +5,7 @@
     "pages/newQuestion/newQuestion",
     "pages/login/login",
     "pages/register/register",
+    "pages/resetPassword/resetPassword",
     "pages/questions/questions",
     "pages/detail/detail",
     "components-demo/subjects-selector/subjects-selector",

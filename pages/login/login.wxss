@@ -23,3 +23,15 @@
   flex-direction: row;
   justify-content: flex-end;
 }
+
+.forgot-password-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10rpx;
+}
+
+.forgot-password-link {
+  font-size: 26rpx;
+  color: #007AFF;
+  text-decoration: none;
+}

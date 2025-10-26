@@ -3,6 +3,9 @@
   <view class="image-container">
   <the-button size="small" text="显示验证码" bind:the_tap="showCaptcha"></the-button>
   </view>
+  <view class="forgot-password-container">
+    <navigator url="/pages/resetPassword/resetPassword" class="forgot-password-link">忘记密码？</navigator>
+  </view>
 </view>
 <view class="backgroud" wx:if="{{captchaShow}}" bind:tap="hideCaptcha"></view>
 <the-captcha class="captcha" wx:if="{{captchaShow}}" bind:submit="onSubmitLogin"></the-captcha>
